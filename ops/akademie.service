@@ -1,0 +1,13 @@
+[Unit]
+Description=Akademie Dev Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/leo/projects/akademie
+ExecStart=/home/leo/.bun/bin/bun run dev
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
