@@ -1,6 +1,7 @@
 import tailwindcss from "@tailwindcss/vite"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import react from "@vitejs/plugin-react"
+import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 
 export default defineConfig({
@@ -11,7 +12,10 @@ export default defineConfig({
     allowedHosts: ["preview.akademie.contentoren.de", "localhost"],
   },
   resolve: {
-    tsconfigPaths: true,
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@convex": fileURLToPath(new URL("./convex", import.meta.url)),
+    },
   },
   plugins: [
     tailwindcss(),
@@ -21,9 +25,7 @@ export default defineConfig({
         routesDirectory: "routes",
       },
       prerender: {
-        enabled: true,
-        crawlLinks: true,
-        autoSubfolderIndex: false,
+        enabled: false,
       },
     }),
     react(),
