@@ -1,6 +1,7 @@
 import { v } from "convex/values"
 
 import { mutation, query } from "./_generated/server"
+import { requireAuth } from "./requireAuth"
 
 function cleanOptional(value: string | undefined) {
   const trimmed = value?.trim()
@@ -10,6 +11,8 @@ function cleanOptional(value: string | undefined) {
 export const list = query({
   args: {},
   handler: async (ctx) => {
+    await requireAuth(ctx)
+
     return await ctx.db.query("customers").withIndex("by_updatedAt").order("desc").collect()
   },
 })
@@ -17,6 +20,8 @@ export const list = query({
 export const get = query({
   args: { customerId: v.id("customers") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     return await ctx.db.get(args.customerId)
   },
 })
@@ -29,6 +34,8 @@ export const create = mutation({
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const now = Date.now()
 
     return await ctx.db.insert("customers", {
@@ -51,6 +58,8 @@ export const update = mutation({
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     await ctx.db.patch(args.customerId, {
       name: args.name.trim(),
       email: args.email.trim().toLowerCase(),
@@ -64,6 +73,8 @@ export const update = mutation({
 export const remove = mutation({
   args: { customerId: v.id("customers") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const [files, progressItems] = await Promise.all([
       ctx.db.query("textFiles").withIndex("by_customer", (q) => q.eq("customerId", args.customerId)).collect(),
       ctx.db.query("progress").withIndex("by_customer", (q) => q.eq("customerId", args.customerId)).collect(),

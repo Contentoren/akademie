@@ -8,9 +8,12 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
 import type * as customers from "../customers.js";
 import type * as dashboard from "../dashboard.js";
+import type * as http from "../http.js";
 import type * as progress from "../progress.js";
+import type * as requireAuth from "../requireAuth.js";
 import type * as textFiles from "../textFiles.js";
 
 import type {
@@ -20,9 +23,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
   customers: typeof customers;
   dashboard: typeof dashboard;
+  http: typeof http;
   progress: typeof progress;
+  requireAuth: typeof requireAuth;
   textFiles: typeof textFiles;
 }>;
 

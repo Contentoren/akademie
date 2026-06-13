@@ -2,10 +2,13 @@ import { v } from "convex/values"
 
 import { progressStatus } from "./schema"
 import { mutation, query } from "./_generated/server"
+import { requireAuth } from "./requireAuth"
 
 export const listByCustomer = query({
   args: { customerId: v.id("customers") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     return await ctx.db.query("progress").withIndex("by_customer", (q) => q.eq("customerId", args.customerId)).collect()
   },
 })
@@ -18,6 +21,8 @@ export const create = mutation({
     sourceTextFileId: v.optional(v.id("textFiles")),
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const now = Date.now()
 
     return await ctx.db.insert("progress", {
@@ -39,6 +44,8 @@ export const update = mutation({
     sourceTextFileId: v.optional(v.id("textFiles")),
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     await ctx.db.patch(args.progressId, {
       label: args.label.trim(),
       status: args.status,
@@ -54,6 +61,8 @@ export const updateStatus = mutation({
     status: progressStatus,
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     await ctx.db.patch(args.progressId, {
       status: args.status,
       updatedAt: Date.now(),
@@ -64,6 +73,8 @@ export const updateStatus = mutation({
 export const remove = mutation({
   args: { progressId: v.id("progress") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     await ctx.db.delete(args.progressId)
   },
 })

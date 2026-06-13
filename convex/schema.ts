@@ -1,3 +1,4 @@
+import { authTables } from "@convex-dev/auth/server"
 import { defineSchema, defineTable } from "convex/server"
 import { v } from "convex/values"
 
@@ -5,6 +6,8 @@ export const textFileKind = v.union(v.literal("profile"), v.literal("progress"),
 export const progressStatus = v.union(v.literal("open"), v.literal("in_progress"), v.literal("done"))
 
 export default defineSchema({
+  ...authTables,
+
   customers: defineTable({
     name: v.string(),
     email: v.string(),

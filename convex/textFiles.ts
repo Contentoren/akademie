@@ -2,10 +2,13 @@ import { v } from "convex/values"
 
 import { textFileKind } from "./schema"
 import { mutation, query } from "./_generated/server"
+import { requireAuth } from "./requireAuth"
 
 export const listByCustomer = query({
   args: { customerId: v.id("customers") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     return await ctx.db
       .query("textFiles")
       .withIndex("by_customer_updatedAt", (q) => q.eq("customerId", args.customerId))
@@ -17,6 +20,8 @@ export const listByCustomer = query({
 export const get = query({
   args: { fileId: v.id("textFiles") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const file = await ctx.db.get(args.fileId)
 
     if (!file) {
@@ -38,6 +43,8 @@ export const create = mutation({
     kind: textFileKind,
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const now = Date.now()
 
     return await ctx.db.insert("textFiles", {
@@ -59,6 +66,8 @@ export const update = mutation({
     kind: textFileKind,
   },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     await ctx.db.patch(args.fileId, {
       title: args.title.trim(),
       content: args.content,
@@ -71,6 +80,8 @@ export const update = mutation({
 export const remove = mutation({
   args: { fileId: v.id("textFiles") },
   handler: async (ctx, args) => {
+    await requireAuth(ctx)
+
     const linkedProgress = await ctx.db
       .query("progress")
       .filter((q) => q.eq(q.field("sourceTextFileId"), args.fileId))

@@ -17,6 +17,8 @@
     "preview:uninstall": "systemctl --user stop akademie && systemctl --user disable akademie && rm -f ~/.config/systemd/user/akademie.service && systemctl --user daemon-reload"
   },
   "dependencies": {
+    "@auth/core": "0.37.0",
+    "@convex-dev/auth": "^0.0.92",
     "@convex-dev/react-query": "^0.1.0",
     "@tanstack/react-query": "^5.100.13",
     "@tanstack/react-router": "^1.168.23",
