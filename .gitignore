@@ -54,7 +54,6 @@ pnpm-lock.yaml
 
 # vscode
 .vscode
-*.code-workspace
 
 # Vite
 vite.config.d.ts
