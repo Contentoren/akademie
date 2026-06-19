@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "convex-solidjs"
-import { ArrowLeft, FileText, Save, Trash2 } from "lucide-solid"
+import { mdiArrowLeft, mdiContentSaveOutline, mdiFileDocumentOutline, mdiTrashCanOutline } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import { createSignal, Show } from "solid-js"
 
 import { api } from "@convex/_generated/api"
@@ -66,11 +67,11 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
         <section class="section-shell py-10 sm:py-14">
           <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
             <a class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 transition hover:text-slate-950" href={`/customers/${loaded().customer!._id}`}>
-              <ArrowLeft class="size-4" />
+              <Icon path={mdiArrowLeft} class="size-4" />
               Zurück zu {loaded().customer!.name}
             </a>
             <Button onClick={handleDelete} type="button" variant="danger">
-              <Trash2 class="mr-2 size-4" />
+              <Icon path={mdiTrashCanOutline} class="mr-2 size-4" />
               Textdatei löschen
             </Button>
           </div>
@@ -84,7 +85,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
           <Card>
             <div class="mb-6 flex items-center gap-3">
               <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-                <FileText class="size-5" />
+                <Icon path={mdiFileDocumentOutline} class="size-5" />
               </span>
               <div>
                 <h2 class="text-2xl font-black text-slate-950">Editor</h2>
@@ -110,7 +111,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
               </Field>
               <div class="flex flex-wrap items-center gap-3">
                 <Button disabled={isSaving()} type="submit">
-                  <Save class="mr-2 size-4" />
+                  <Icon path={mdiContentSaveOutline} class="mr-2 size-4" />
                   Speichern
                 </Button>
                 <span class="text-sm font-semibold text-slate-500">Änderungen werden direkt in Convex gespeichert.</span>

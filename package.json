@@ -19,11 +19,11 @@
   "dependencies": {
     "@auth/core": "0.37.0",
     "@convex-dev/auth": "^0.0.92",
+    "@mdi/js": "^7.4.47",
     "@tanstack/solid-router": "^1.170.16",
     "@tanstack/solid-start": "^1.168.26",
     "convex": "^1.39.1",
     "convex-solidjs": "^0.0.3",
-    "lucide-solid": "^1.21.0",
     "solid-js": "^1.9.13",
     "tailwindcss": "^4.2.2"
   },

@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "convex-solidjs"
-import { ArrowLeft, FileText, ListChecks, Save, Trash2, UserRoundCheck } from "lucide-solid"
+import { mdiAccountCheckOutline, mdiArrowLeft, mdiContentSaveOutline, mdiFileDocumentOutline, mdiFormatListChecks, mdiTrashCanOutline } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import { createSignal, Show } from "solid-js"
 
 import { api } from "@convex/_generated/api"
@@ -130,11 +131,11 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
     <section class="section-shell py-10 sm:py-14">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <a class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 transition hover:text-slate-950" href="/customers">
-          <ArrowLeft class="size-4" />
+          <Icon path={mdiArrowLeft} class="size-4" />
           Zur Kundenliste
         </a>
         <Button onClick={handleDeleteCustomer} type="button" variant="danger">
-          <Trash2 class="mr-2 size-4" />
+          <Icon path={mdiTrashCanOutline} class="mr-2 size-4" />
           Kunde löschen
         </Button>
       </div>
@@ -160,7 +161,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
           <Card>
             <div class="mb-5 flex items-center gap-3">
               <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-                <UserRoundCheck class="size-5" />
+                <Icon path={mdiAccountCheckOutline} class="size-5" />
               </span>
               <h2 class="text-2xl font-black text-slate-950">Profil</h2>
             </div>
@@ -178,7 +179,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
                 <textarea class="input-field min-h-32" value={loaded().notes ?? ""} name="notes" />
               </Field>
               <Button disabled={isSavingProfile()} type="submit">
-                <Save class="mr-2 size-4" />
+                <Icon path={mdiContentSaveOutline} class="mr-2 size-4" />
                 Profil speichern
               </Button>
             </form>
@@ -206,7 +207,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
           <Card>
             <div class="mb-5 flex items-center justify-between gap-4">
               <div class="flex items-center gap-3">
-                <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700"><FileText class="size-5" /></span>
+                <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700"><Icon path={mdiFileDocumentOutline} class="size-5" /></span>
                 <h2 class="text-2xl font-black text-slate-950">Textdateien</h2>
               </div>
               <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-slate-600">{textFiles().length}</span>
@@ -232,7 +233,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
 
           <Card>
             <div class="mb-5 flex items-center gap-3">
-              <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700"><ListChecks class="size-5" /></span>
+              <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700"><Icon path={mdiFormatListChecks} class="size-5" /></span>
               <h2 class="text-2xl font-black text-slate-950">Fortschritt</h2>
             </div>
             <form class="mb-5 grid gap-3 md:grid-cols-[1fr_0.7fr_auto] md:items-end" onSubmit={handleCreateProgress}>

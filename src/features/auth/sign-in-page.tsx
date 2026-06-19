@@ -1,4 +1,5 @@
-import { LockKeyhole, ShieldCheck } from "lucide-solid"
+import { mdiLockOutline, mdiShieldCheckOutline } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import { createSignal } from "solid-js"
 
 import { Button, Card, Field } from "@/components/ui"
@@ -50,7 +51,7 @@ export function SignInPage() {
       <div class="grid w-full gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-center">
         <div class="rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-2xl shadow-slate-950/20 sm:p-10">
           <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/10 px-4 py-2 text-sm font-bold text-cyan-200">
-            <ShieldCheck class="size-4" />
+            <Icon path={mdiShieldCheckOutline} class="size-4" />
             Geschützter Zugriff
           </div>
           <h1 class="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Kundenfortschritt nur nach Anmeldung öffnen.</h1>
@@ -62,7 +63,7 @@ export function SignInPage() {
         <Card class="p-7 sm:p-8">
           <div class="mb-6 flex items-center gap-3">
             <span class="flex size-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-              <LockKeyhole class="size-5" />
+              <Icon path={mdiLockOutline} class="size-5" />
             </span>
             <div>
               <p class="text-xs font-black uppercase tracking-[0.22em] text-cyan-700">Convex Auth</p>

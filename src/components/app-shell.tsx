@@ -1,5 +1,6 @@
 import { Outlet } from "@tanstack/solid-router"
-import { BookText, UserRoundCheck } from "lucide-solid"
+import { mdiAccountCheckOutline, mdiBookOpenPageVariantOutline } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import { createSignal } from "solid-js"
 
 import { SignInPage } from "@/features/auth/sign-in-page"
@@ -12,7 +13,7 @@ export function AppShell() {
         <div class="section-shell flex items-center justify-between py-3">
           <a class="flex items-center gap-3" href="/">
             <span class="flex size-11 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/20">
-              <BookText class="size-5" />
+              <Icon path={mdiBookOpenPageVariantOutline} class="size-5" />
             </span>
             <span>
               <span class="block text-sm font-black uppercase tracking-[0.26em] text-slate-950">Kundenfortschritt</span>
@@ -26,7 +27,7 @@ export function AppShell() {
                 Kunden
               </a>
               <a class="hidden items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-800 sm:flex" href="/customers">
-                <UserRoundCheck class="size-4" />
+                <Icon path={mdiAccountCheckOutline} class="size-4" />
                 Öffnen
               </a>
               <SignOutButton />

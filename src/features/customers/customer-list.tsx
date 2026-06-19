@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "convex-solidjs"
-import { ArrowRight, Building2, FileText, Plus, UserRound } from "lucide-solid"
+import { mdiAccountCircleOutline, mdiArrowRight, mdiFileDocumentOutline, mdiOfficeBuildingOutline, mdiPlus } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import { createSignal } from "solid-js"
 
 import { api } from "@convex/_generated/api"
@@ -53,7 +54,7 @@ export function CustomerListPage() {
         <Card>
           <div class="mb-5 flex items-center gap-3">
             <span class="flex size-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-              <Plus class="size-5" />
+              <Icon path={mdiPlus} class="size-5" />
             </span>
             <div>
               <h2 class="text-2xl font-black text-slate-950">Neuer Kunde</h2>
@@ -85,15 +86,15 @@ export function CustomerListPage() {
                 <a class="group rounded-[2rem] border border-white/70 bg-white/88 p-5 shadow-xl shadow-slate-950/[0.05] ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-2xl" href={`/customers/${customer._id}`}>
                   <div class="mb-5 flex items-start justify-between gap-4">
                     <span class="flex size-12 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/20">
-                      <UserRound class="size-5" />
+                      <Icon path={mdiAccountCircleOutline} class="size-5" />
                     </span>
-                    <ArrowRight class="size-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-slate-950" />
+                    <Icon path={mdiArrowRight} class="size-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-slate-950" />
                   </div>
                   <h2 class="text-xl font-black text-slate-950">{customer.name}</h2>
                   <p class="mt-2 text-sm font-semibold text-slate-600">{customer.email}</p>
                   <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                    {customer.company ? <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1"><Building2 class="size-3" />{customer.company}</span> : null}
-                    <span class="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-3 py-1 text-cyan-800"><FileText class="size-3" />Profil</span>
+                    {customer.company ? <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1"><Icon path={mdiOfficeBuildingOutline} class="size-3" />{customer.company}</span> : null}
+                    <span class="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-3 py-1 text-cyan-800"><Icon path={mdiFileDocumentOutline} class="size-3" />Profil</span>
                   </div>
                 </a>
               ))}

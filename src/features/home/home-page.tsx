@@ -1,6 +1,6 @@
-import { ArrowRight, DatabaseZap, FileText, ListChecks, ShieldCheck, UserRoundCheck } from "lucide-solid"
+import { mdiAccountCheckOutline, mdiArrowRight, mdiDatabaseOutline, mdiFileDocumentOutline, mdiFormatListChecks, mdiShieldCheckOutline } from "@mdi/js"
+import { Icon } from "@/components/Icon"
 import type { JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
 
 import { api } from "@convex/_generated/api"
 import { Card } from "@/components/ui"
@@ -15,7 +15,7 @@ export function HomePage() {
         <div class="section-shell grid gap-12 py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-24">
           <div>
             <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white/80 px-4 py-2 text-sm font-bold text-cyan-800 shadow-sm backdrop-blur">
-              <DatabaseZap class="size-4" />
+              <Icon path={mdiDatabaseOutline} class="size-4" />
               Convex ist die einzige Persistenz
             </div>
             <h1 class="max-w-4xl text-5xl font-black tracking-[-0.06em] text-slate-950 sm:text-6xl lg:text-7xl">
@@ -27,7 +27,7 @@ export function HomePage() {
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
               <a class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-slate-950/20 transition hover:bg-blue-950" href="/customers">
                 Kunden öffnen
-                <ArrowRight class="size-4" />
+                <Icon path={mdiArrowRight} class="size-4" />
               </a>
               <a class="inline-flex items-center justify-center rounded-full bg-white px-6 py-4 text-sm font-bold text-slate-800 ring-1 ring-slate-200 transition hover:bg-slate-50" href="/customers">
                 Profil anlegen
@@ -42,14 +42,14 @@ export function HomePage() {
                 <h2 class="mt-2 text-2xl font-black text-slate-950">Aktuelle Convex-Daten</h2>
               </div>
               <span class="flex size-14 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                <ShieldCheck class="size-6" />
+                <Icon path={mdiShieldCheckOutline} class="size-6" />
               </span>
             </div>
             <div class="grid gap-3 sm:grid-cols-2">
-              <HeroMetric icon={<UserRoundCheck class="size-5" />} label="Kunden" value={overview.data()?.customerCount ?? 0} />
-              <HeroMetric icon={<FileText class="size-5" />} label="Textdateien" value={overview.data()?.textFileCount ?? 0} />
-              <HeroMetric icon={<ListChecks class="size-5" />} label="Fortschritte" value={overview.data()?.progressCount ?? 0} />
-              <HeroMetric icon={<ShieldCheck class="size-5" />} label="Erledigt" value={overview.data()?.doneProgress ?? 0} />
+              <HeroMetric icon={<Icon path={mdiAccountCheckOutline} class="size-5" />} label="Kunden" value={overview.data()?.customerCount ?? 0} />
+              <HeroMetric icon={<Icon path={mdiFileDocumentOutline} class="size-5" />} label="Textdateien" value={overview.data()?.textFileCount ?? 0} />
+              <HeroMetric icon={<Icon path={mdiFormatListChecks} class="size-5" />} label="Fortschritte" value={overview.data()?.progressCount ?? 0} />
+              <HeroMetric icon={<Icon path={mdiShieldCheckOutline} class="size-5" />} label="Erledigt" value={overview.data()?.doneProgress ?? 0} />
             </div>
           </Card>
         </div>
@@ -58,13 +58,13 @@ export function HomePage() {
       <section class="section-shell py-16">
         <div class="grid gap-4 md:grid-cols-3">
           {[
-            { icon: UserRoundCheck, title: "Profile", text: "Strukturierte Kundendaten wie Name, E-Mail, Firma und Profilnotizen." },
-            { icon: FileText, title: "Textdateien", text: "Freie Textinhalte für Tests, Notizen, Profilinformationen oder Fortschrittsdokumentation." },
-            { icon: ListChecks, title: "Fortschritt", text: "Statuspunkte zeigen, was offen, in Arbeit oder erledigt ist." },
+            { icon: mdiAccountCheckOutline, title: "Profile", text: "Strukturierte Kundendaten wie Name, E-Mail, Firma und Profilnotizen." },
+            { icon: mdiFileDocumentOutline, title: "Textdateien", text: "Freie Textinhalte für Tests, Notizen, Profilinformationen oder Fortschrittsdokumentation." },
+            { icon: mdiFormatListChecks, title: "Fortschritt", text: "Statuspunkte zeigen, was offen, in Arbeit oder erledigt ist." },
           ].map((item) => (
             <Card>
               <span class="mb-5 flex size-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-                <Dynamic component={item.icon} class="size-6" />
+                <Icon path={item.icon} class="size-6" />
               </span>
               <h3 class="text-xl font-black text-slate-950">{item.title}</h3>
               <p class="mt-3 text-sm leading-6 text-slate-600">{item.text}</p>
