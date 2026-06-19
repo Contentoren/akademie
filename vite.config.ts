@@ -31,6 +31,17 @@ export default defineConfig({
     solid({ ssr: true }),
   ],
   build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("solid-js")) return "solid"
+            if (id.includes("@tanstack")) return "tanstack"
+            if (id.includes("@mdi/js")) return "icons"
+          }
+        },
+      },
+    },
     target: "esnext",
     chunkSizeWarningLimit: 1050,
     outDir: "dist",
