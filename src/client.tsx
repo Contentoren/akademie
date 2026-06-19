@@ -1,12 +1,6 @@
-import { StartClient } from "@tanstack/react-start/client"
-import { StrictMode, startTransition } from "react"
-import { hydrateRoot } from "react-dom/client"
+import { hydrateStart, StartClient } from "@tanstack/solid-start/client"
+import { hydrate } from "solid-js/web"
 
-startTransition(() => {
-  hydrateRoot(
-    document,
-    <StrictMode>
-      <StartClient />
-    </StrictMode>,
-  )
+hydrateStart().then((router) => {
+  hydrate(() => <StartClient router={router} />, document)
 })

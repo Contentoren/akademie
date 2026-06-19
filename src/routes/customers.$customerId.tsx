@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/solid-router"
 
 import { CustomerDetailPage } from "@/features/customers/customer-detail"
 
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/customers/$customerId")({
 })
 
 function RouteComponent() {
-  const { customerId } = Route.useParams()
+  const params = Route.useParams()
 
-  return <CustomerDetailPage customerId={customerId} />
+  return <CustomerDetailPage customerId={params().customerId} />
 }

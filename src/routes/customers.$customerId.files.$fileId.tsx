@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/solid-router"
 
 import { TextFileEditorPage } from "@/features/customers/text-file-editor"
 
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/customers/$customerId/files/$fileId")({
 })
 
 function RouteComponent() {
-  const { fileId } = Route.useParams()
+  const params = Route.useParams()
 
-  return <TextFileEditorPage fileId={fileId} />
+  return <TextFileEditorPage fileId={params().fileId} />
 }

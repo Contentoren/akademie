@@ -1,8 +1,8 @@
 import tailwindcss from "@tailwindcss/vite"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite"
-import react from "@vitejs/plugin-react"
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
+import solid from "vite-plugin-solid"
 
 export default defineConfig({
   server: {
@@ -28,7 +28,7 @@ export default defineConfig({
         enabled: false,
       },
     }),
-    react(),
+    solid({ ssr: true }),
   ],
   build: {
     target: "esnext",

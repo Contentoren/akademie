@@ -4,7 +4,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
     "noEmit": true,
     "types": ["bun", "node", "vite/client"],
     "paths": {
@@ -36,5 +37,5 @@
     "plugins": []
   },
   "include": ["src", "convex", "vite.config.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "dist-react"]
 }
