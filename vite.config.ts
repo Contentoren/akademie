@@ -39,6 +39,7 @@ export default defineConfig({
             if (id.includes("@tanstack")) return "tanstack"
             if (id.includes("@mdi/js")) return "icons"
           }
+          return undefined
         },
       },
     },
