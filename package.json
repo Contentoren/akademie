@@ -11,7 +11,7 @@
     "check": "bun run typecheck && bun test",
     "convex:dev": "convex dev",
     "convex:deploy": "convex deploy",
-    "preview:install": "mkdir -p ~/.config/systemd/user && cp ops/akademie.service ~/.config/systemd/user/ && systemctl --user daemon-reload && systemctl --user enable akademie && systemctl --user restart akademie",
+    "preview:install": "bash ops/install-service.bash",
     "preview:restart": "systemctl --user restart akademie",
     "preview:stop": "systemctl --user stop akademie",
     "preview:uninstall": "systemctl --user stop akademie && systemctl --user disable akademie && rm -f ~/.config/systemd/user/akademie.service && systemctl --user daemon-reload"

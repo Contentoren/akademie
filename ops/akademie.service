@@ -1,14 +1,15 @@
 [Unit]
 Description=Kundenfortschritt Preview Server
-After=network.target
+After=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/leo/projects/akademie
+WorkingDirectory=%h/akademie
+Environment=PATH=%h/.local/bin:%h/.bun/bin:/usr/local/bin:/usr/bin:/bin
 Environment=APP_URL=http://localhost:3120
 Environment=NODE_ENV=production
-ExecStartPre=/home/leo/.bun/bin/bun run build
-ExecStart=/home/leo/.bun/bin/bun run preview
+ExecStartPre=/usr/bin/env bun run build
+ExecStart=/usr/bin/env bun run preview
 Restart=on-failure
 RestartSec=5
 
