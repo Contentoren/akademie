@@ -9,6 +9,7 @@ Environment=PATH=%h/.local/bin:%h/.bun/bin:/usr/local/bin:/usr/bin:/bin
 Environment=APP_URL=http://localhost:3120
 Environment=NODE_ENV=production
 ExecStartPre=/usr/bin/env bun run build
+Nice=10
 ExecStart=/usr/bin/env bun run preview
 Restart=on-failure
 RestartSec=5
