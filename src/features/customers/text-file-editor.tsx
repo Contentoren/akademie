@@ -1,11 +1,11 @@
 import { useMutation, useQuery } from "convex-solidjs"
 import { mdiArrowLeft, mdiContentSaveOutline, mdiFileDocumentOutline, mdiTrashCanOutline } from "@mdi/js"
-import { Icon } from "@/components/Icon"
+import { Icon } from "#src/components/Icon"
 import { createSignal, Show } from "solid-js"
 
-import { api } from "@convex/_generated/api"
-import type { Id } from "@convex/_generated/dataModel"
-import { Button, Card, EmptyState, Field } from "@/components/ui"
+import { api } from "#convex/_generated/api.js"
+import type { Id } from "#convex/_generated/dataModel.js"
+import { Button, Card, EmptyState, Field } from "#src/components/ui"
 import type { TextFileKind } from "./types"
 
 const fileKindLabels: Record<TextFileKind, string> = {

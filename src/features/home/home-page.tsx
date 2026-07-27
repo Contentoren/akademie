@@ -1,9 +1,9 @@
 import { mdiAccountCheckOutline, mdiArrowRight, mdiDatabaseOutline, mdiFileDocumentOutline, mdiFormatListChecks, mdiShieldCheckOutline } from "@mdi/js"
-import { Icon } from "@/components/Icon"
+import { Icon } from "#src/components/Icon"
 import type { JSX } from "solid-js"
 
-import { api } from "@convex/_generated/api"
-import { Card } from "@/components/ui"
+import { api } from "#convex/_generated/api.js"
+import { Card } from "#src/components/ui"
 import { useQuery } from "convex-solidjs"
 
 export function HomePage() {

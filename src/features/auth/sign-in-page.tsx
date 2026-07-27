@@ -1,9 +1,9 @@
 import { mdiLockOutline, mdiShieldCheckOutline } from "@mdi/js"
-import { Icon } from "@/components/Icon"
+import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 
-import { Button, Card, Field } from "@/components/ui"
-import { useAuthActions } from "@/lib/convex-client"
+import { Button, Card, Field } from "#src/components/ui"
+import { useAuthActions } from "#src/lib/convex-client"
 
 type AuthFlow = "signIn" | "signUp"
 

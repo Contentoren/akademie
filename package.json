@@ -40,6 +40,15 @@
     "printWidth": 120,
     "trailingComma": "all"
   },
+  "imports": {
+    "#src/components/*": "./src/components/*.tsx",
+    "#src/features/customers/types": "./src/features/customers/types.ts",
+    "#src/features/*": "./src/features/*.tsx",
+    "#src/lib/convex-client": "./src/lib/convex-client.tsx",
+    "#src/lib/*": "./src/lib/*.ts",
+    "#src/*": "./src/*",
+    "#convex/*": "./convex/*"
+  },
   "private": true,
   "type": "module"
 }

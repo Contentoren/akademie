@@ -1,7 +1,6 @@
 import tailwindcss from "@tailwindcss/vite"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite"
 import { solidAiSrcPlugin } from "ai-src/solid"
-import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 import solid from "vite-plugin-solid"
 
@@ -11,12 +10,6 @@ export default defineConfig({
     strictPort: true,
     host: true,
     allowedHosts: ["preview.akademie.contentoren.de", "localhost"],
-  },
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-      "@convex": fileURLToPath(new URL("./convex", import.meta.url)),
-    },
   },
   plugins: [
     tailwindcss(),

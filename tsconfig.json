@@ -8,10 +8,6 @@
     "jsxImportSource": "solid-js",
     "noEmit": true,
     "types": ["bun", "node", "vite/client"],
-    "paths": {
-      "@/*": ["./src/*"],
-      "@convex/*": ["./convex/*"]
-    },
     "allowImportingTsExtensions": true,
     "strictNullChecks": true,
     "isolatedModules": true,

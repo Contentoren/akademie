@@ -2,9 +2,9 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/solid-r
 import { Suspense, type JSX } from "solid-js"
 import { HydrationScript } from "solid-js/web"
 
-import { AppShell } from "@/components/app-shell"
-import { ConvexClientProvider } from "@/lib/convex-client"
-import "@/tailwind.css"
+import { AppShell } from "#src/components/app-shell"
+import { ConvexClientProvider } from "#src/lib/convex-client"
+import "#src/tailwind.css"
 
 export const Route = createRootRoute({
   head: () => ({

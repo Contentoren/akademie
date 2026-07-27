@@ -1,10 +1,10 @@
 import { Outlet } from "@tanstack/solid-router"
 import { mdiAccountCheckOutline, mdiBookOpenPageVariantOutline } from "@mdi/js"
-import { Icon } from "@/components/Icon"
+import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 
-import { SignInPage } from "@/features/auth/sign-in-page"
-import { Authenticated, AuthLoading, Unauthenticated, useAuthActions } from "@/lib/convex-client"
+import { SignInPage } from "#src/features/auth/sign-in-page"
+import { Authenticated, AuthLoading, Unauthenticated, useAuthActions } from "#src/lib/convex-client"
 
 export function AppShell() {
   return (

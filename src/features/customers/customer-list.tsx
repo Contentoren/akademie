@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "convex-solidjs"
 import { mdiAccountCircleOutline, mdiArrowRight, mdiFileDocumentOutline, mdiOfficeBuildingOutline, mdiPlus } from "@mdi/js"
-import { Icon } from "@/components/Icon"
+import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 
-import { api } from "@convex/_generated/api"
-import { Button, Card, EmptyState, Field } from "@/components/ui"
+import { api } from "#convex/_generated/api.js"
+import { Button, Card, EmptyState, Field } from "#src/components/ui"
 
 export function CustomerListPage() {
   const customersQuery = useQuery(api.customers.list, {})
