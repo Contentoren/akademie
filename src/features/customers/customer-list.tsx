@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from "convex-solidjs"
-import { mdiAccountCircleOutline, mdiArrowRight, mdiFileDocumentOutline, mdiOfficeBuildingOutline, mdiPlus } from "@mdi/js"
+import { mdiAccountCircleOutline } from "@adaptive-ds/mdi/mdiAccountCircleOutline.js"
+import { mdiArrowRight } from "@adaptive-ds/mdi/mdiArrowRight.js"
+import { mdiFileDocumentOutline } from "@adaptive-ds/mdi/mdiFileDocumentOutline.js"
+import { mdiOfficeBuildingOutline } from "@adaptive-ds/mdi/mdiOfficeBuildingOutline.js"
+import { mdiPlus } from "@adaptive-ds/mdi/mdiPlus.js"
 import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 

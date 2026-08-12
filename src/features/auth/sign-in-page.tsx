@@ -1,4 +1,5 @@
-import { mdiLockOutline, mdiShieldCheckOutline } from "@mdi/js"
+import { mdiLockOutline } from "@adaptive-ds/mdi/mdiLockOutline.js"
+import { mdiShieldCheckOutline } from "@adaptive-ds/mdi/mdiShieldCheckOutline.js"
 import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 

@@ -32,7 +32,7 @@ export default defineConfig({
           if (id.includes("node_modules")) {
             if (id.includes("solid-js")) return "solid"
             if (id.includes("@tanstack")) return "tanstack"
-            if (id.includes("@mdi/js")) return "icons"
+            if (id.includes("@adaptive-ds/mdi")) return "icons"
           }
           return undefined
         },

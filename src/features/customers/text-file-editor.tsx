@@ -1,5 +1,8 @@
 import { useMutation, useQuery } from "convex-solidjs"
-import { mdiArrowLeft, mdiContentSaveOutline, mdiFileDocumentOutline, mdiTrashCanOutline } from "@mdi/js"
+import { mdiArrowLeft } from "@adaptive-ds/mdi/mdiArrowLeft.js"
+import { mdiContentSaveOutline } from "@adaptive-ds/mdi/mdiContentSaveOutline.js"
+import { mdiFileDocumentOutline } from "@adaptive-ds/mdi/mdiFileDocumentOutline.js"
+import { mdiTrashCanOutline } from "@adaptive-ds/mdi/mdiTrashCanOutline.js"
 import { Icon } from "#src/components/Icon"
 import { createSignal, Show } from "solid-js"
 

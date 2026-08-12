@@ -16,9 +16,9 @@
     "preview:uninstall": "systemctl --user stop akademie && systemctl --user disable akademie && rm -f ~/.config/systemd/user/akademie.service && systemctl --user daemon-reload"
   },
   "dependencies": {
+    "@adaptive-ds/mdi": "^0.1.0",
     "@auth/core": "0.37.0",
     "@convex-dev/auth": "^0.0.94",
-    "@mdi/js": "^7.4.47",
     "@tanstack/solid-router": "^1.170.18",
     "@tanstack/solid-start": "^1.168.28",
     "convex": "^1.42.2",

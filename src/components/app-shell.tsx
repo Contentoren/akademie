@@ -1,5 +1,6 @@
 import { Outlet } from "@tanstack/solid-router"
-import { mdiAccountCheckOutline, mdiBookOpenPageVariantOutline } from "@mdi/js"
+import { mdiAccountCheckOutline } from "@adaptive-ds/mdi/mdiAccountCheckOutline.js"
+import { mdiBookOpenPageVariantOutline } from "@adaptive-ds/mdi/mdiBookOpenPageVariantOutline.js"
 import { Icon } from "#src/components/Icon"
 import { createSignal } from "solid-js"
 

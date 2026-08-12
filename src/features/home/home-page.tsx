@@ -1,4 +1,9 @@
-import { mdiAccountCheckOutline, mdiArrowRight, mdiDatabaseOutline, mdiFileDocumentOutline, mdiFormatListChecks, mdiShieldCheckOutline } from "@mdi/js"
+import { mdiAccountCheckOutline } from "@adaptive-ds/mdi/mdiAccountCheckOutline.js"
+import { mdiArrowRight } from "@adaptive-ds/mdi/mdiArrowRight.js"
+import { mdiDatabaseOutline } from "@adaptive-ds/mdi/mdiDatabaseOutline.js"
+import { mdiFileDocumentOutline } from "@adaptive-ds/mdi/mdiFileDocumentOutline.js"
+import { mdiFormatListChecks } from "@adaptive-ds/mdi/mdiFormatListChecks.js"
+import { mdiShieldCheckOutline } from "@adaptive-ds/mdi/mdiShieldCheckOutline.js"
 import { Icon } from "#src/components/Icon"
 import type { JSX } from "solid-js"
 
