@@ -1,6 +1,5 @@
 import { splitProps, type JSX } from "solid-js"
-
-import { cn } from "#src/lib/utils"
+import { cn } from "cn"
 
 type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "danger" | "ghost" }
 

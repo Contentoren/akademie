@@ -1,7 +1,3 @@
-export function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ")
-}
-
 export function parseJsonArray(value: string): string[] {
   try {
     const parsed = JSON.parse(value) as unknown

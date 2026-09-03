@@ -21,6 +21,7 @@
     "@convex-dev/auth": "^0.0.94",
     "@tanstack/solid-router": "^1.170.18",
     "@tanstack/solid-start": "^1.168.28",
+    "cn": "^0.2.4",
     "convex": "^1.42.2",
     "convex-solidjs": "^0.0.3",
     "solid-js": "^1.9.14",
