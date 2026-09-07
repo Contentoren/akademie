@@ -9,6 +9,11 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as auth_googleAuthResult from "../auth/googleAuthResult.js";
+import type * as auth_googleCallbackRedirect from "../auth/googleCallbackRedirect.js";
+import type * as auth_googleCallbackUrl from "../auth/googleCallbackUrl.js";
+import type * as auth_googleOAuthFetch from "../auth/googleOAuthFetch.js";
+import type * as auth_googleTokenRequestInit from "../auth/googleTokenRequestInit.js";
 import type * as customers from "../customers.js";
 import type * as dashboard from "../dashboard.js";
 import type * as http from "../http.js";
@@ -24,6 +29,11 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  "auth/googleAuthResult": typeof auth_googleAuthResult;
+  "auth/googleCallbackRedirect": typeof auth_googleCallbackRedirect;
+  "auth/googleCallbackUrl": typeof auth_googleCallbackUrl;
+  "auth/googleOAuthFetch": typeof auth_googleOAuthFetch;
+  "auth/googleTokenRequestInit": typeof auth_googleTokenRequestInit;
   customers: typeof customers;
   dashboard: typeof dashboard;
   http: typeof http;

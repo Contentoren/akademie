@@ -3,11 +3,16 @@ import { ConvexHttpClient } from "convex/browser"
 import type { Value } from "convex/values"
 import { createContext, createSignal, onMount, Show, useContext, type JSX } from "solid-js"
 
+import { authOAuthCodeExtract } from "#src/features/auth/model/authOAuthCodeExtract"
+import { authOAuthCompletionArgsCreate } from "#src/features/auth/model/authOAuthCompletionArgsCreate"
+import { authOAuthVerifierStoreCreate } from "#src/features/auth/model/authOAuthVerifierStoreCreate"
+
 import { authTokenRefreshCreate } from "./auth-token-refresh"
 
 const convexUrl = import.meta.env.VITE_CONVEX_URL as string | undefined
 const JWT_STORAGE_KEY = "__convexAuthJWT"
 const REFRESH_TOKEN_STORAGE_KEY = "__convexAuthRefreshToken"
+const VERIFIER_STORAGE_KEY = "__convexAuthOAuthVerifier"
 
 type AuthActions = {
   signIn: (provider: string, params?: FormData | Record<string, Value>) => Promise<{ signingIn: boolean; redirect?: URL }>
@@ -41,6 +46,16 @@ export function ConvexClientProvider(props: { children?: JSX.Element }) {
   const authTokenRefresh = authTokenRefreshCreate<AuthTokens | null>()
   let isSigningOut = false
   let authConfigured = false
+
+  const verifierStore = () => authOAuthVerifierStoreCreate(storageKey(VERIFIER_STORAGE_KEY), localStorage)
+
+  const completeOAuthSignIn = async (code: string) => {
+    const verifier = verifierStore().read()
+    verifierStore().clear()
+    const result = await client.action("auth:signIn" as never, authOAuthCompletionArgsCreate(code, verifier) as never)
+    const tokens = (result as { tokens?: AuthTokens | null }).tokens ?? null
+    await setToken(tokens, true)
+  }
 
   const storeToken = async (tokens: AuthTokens | null, shouldStore: boolean) => {
     setTokenState(tokens?.token ?? null)
@@ -101,11 +116,14 @@ export function ConvexClientProvider(props: { children?: JSX.Element }) {
   const actions: AuthActions = {
     async signIn(provider, args) {
       const params = args instanceof FormData ? Object.fromEntries(args.entries()) : (args ?? {})
-      const result = await client.action("auth:signIn" as never, { provider, params } as never)
+      const verifier = verifierStore().read()
+      verifierStore().clear()
+      const result = await client.action("auth:signIn" as never, { provider, params, verifier } as never)
       const authResult = result as { redirect?: string; tokens?: { token: string; refreshToken: string } | null; verifier?: string }
 
       if (authResult.redirect) {
         const redirect = new URL(authResult.redirect)
+        verifierStore().persist(authResult.verifier)
         window.location.href = redirect.toString()
         return { signingIn: false, redirect }
       }
@@ -132,6 +150,15 @@ export function ConvexClientProvider(props: { children?: JSX.Element }) {
   }
 
   onMount(() => {
+    const oauthCode = authOAuthCodeExtract(window.location.href)
+    if (oauthCode.success) {
+      window.history.replaceState(null, "", oauthCode.data.cleanedHref)
+      void completeOAuthSignIn(oauthCode.data.code).catch(() => {
+        void setToken(null, true)
+      })
+      return
+    }
+
     const storedToken = localStorage.getItem(storageKey(JWT_STORAGE_KEY))
     void setToken(storedToken ? { token: storedToken } : null, false)
   })
