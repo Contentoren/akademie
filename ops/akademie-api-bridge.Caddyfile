@@ -1,0 +1,24 @@
+{
+	admin off
+	auto_https off
+}
+
+:8309 {
+	bind 127.0.0.1
+	reverse_proxy https://api-akademie-dev.contentoren.de {
+		header_up Host api-akademie-dev.contentoren.de
+		transport http {
+			tls_server_name api-akademie-dev.contentoren.de
+		}
+	}
+}
+
+:8311 {
+	bind 127.0.0.1
+	reverse_proxy https://api-akademie.contentoren.de {
+		header_up Host api-akademie.contentoren.de
+		transport http {
+			tls_server_name api-akademie.contentoren.de
+		}
+	}
+}

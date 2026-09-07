@@ -3,7 +3,7 @@ set -euo pipefail
 
 APP_NAME=akademie
 CONVEX_HOST=convex-akademie.contentoren.de
-API_HOST=api-akademie.contentoren.de
+API_HOST=api.akademie.contentoren.de
 INSTANCE_NAME=production
 if [[ -f .prodctl-config ]]; then
   # This file contains only deployment routing metadata, never credentials.

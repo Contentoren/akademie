@@ -75,8 +75,8 @@ Die reservierten `CONVEX_SELF_HOSTED_*`-, `CONVEX_DEPLOYMENT`- und CLI-Token
 Variablen bleiben lokal. `CONVEX_SITE_URL` ist bei self-hosted Convex ein
 verwalteter Built-in-Wert (aus dem Site-Origin), während `JWT_PRIVATE_KEY` und
 `JWKS` für `@convex-dev/auth` in Convex gesetzt werden. Die Backend-Routen sind
-`convex-akademie-dev.contentoren.de` / `api-akademie-dev.contentoren.de` sowie
-`convex-akademie.contentoren.de` / `api-akademie.contentoren.de`.
+`convex-akademie-dev.contentoren.de` / `api.preview.akademie.contentoren.de` sowie
+`convex-akademie.contentoren.de` / `api.akademie.contentoren.de`.
 
 Backend-E2E (Health, Auth-Discovery, Passwort-Sign-up und geschützte Query):
 
@@ -149,8 +149,8 @@ Produktions- und Preview-Routen:
 
 | Umgebung | Frontend | Convex | Convex Site/API |
 |---|---|---|---|
-| Development | `https://preview.akademie.contentoren.de` | `https://convex-akademie-dev.contentoren.de` | `https://api-akademie-dev.contentoren.de` |
-| Production | `https://akademie.contentoren.de` | `https://convex-akademie.contentoren.de` | `https://api-akademie.contentoren.de` |
+| Development | `https://preview.akademie.contentoren.de` | `https://convex-akademie-dev.contentoren.de` | `https://api.preview.akademie.contentoren.de` |
+| Production | `https://akademie.contentoren.de` | `https://convex-akademie.contentoren.de` | `https://api.akademie.contentoren.de` |
 
 `project-registry` stellt für das Frontend den globalen Caddy-Reverse-Proxy inklusive TLS bereit. Die vier Convex-Hostnames bleiben die bestehenden prodctl-/Cloudflare-Tunnel-Routen. Für einen Infrastruktur-Check:
 
@@ -160,8 +160,8 @@ bun run backend:e2e:development
 bun run backend:e2e
 curl -fsS https://convex-akademie.contentoren.de/version
 curl -fsS https://convex-akademie-dev.contentoren.de/version
-curl -fsS https://api-akademie.contentoren.de/.well-known/openid-configuration
-curl -fsS https://api-akademie-dev.contentoren.de/.well-known/openid-configuration
+curl -fsS https://api.akademie.contentoren.de/.well-known/openid-configuration
+curl -fsS https://api.preview.akademie.contentoren.de/.well-known/openid-configuration
 ```
 
 ## Funktionen

@@ -18,13 +18,13 @@ case "$ENV_NAME" in
   development)
     APP="${PRODCTL_APP:-akademie-dev}"
     CONVEX_HOST="${CONVEX_HOST:-convex-akademie-dev.contentoren.de}"
-    API_HOST="${API_HOST:-api-akademie-dev.contentoren.de}"
+    API_HOST="${API_HOST:-api.preview.akademie.contentoren.de}"
     INSTANCE_NAME=development
     ;;
   production)
     APP="${PRODCTL_APP:-akademie}"
     CONVEX_HOST="${CONVEX_HOST:-convex-akademie.contentoren.de}"
-    API_HOST="${API_HOST:-api-akademie.contentoren.de}"
+    API_HOST="${API_HOST:-api.akademie.contentoren.de}"
     INSTANCE_NAME=production
     ;;
   *)
