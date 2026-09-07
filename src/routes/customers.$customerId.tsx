@@ -1,13 +1,9 @@
-import { createFileRoute } from "@tanstack/solid-router"
-
-import { CustomerDetailPage } from "#src/features/customers/customer-detail"
+import { createFileRoute, Outlet } from "@tanstack/solid-router"
 
 export const Route = createFileRoute("/customers/$customerId")({
-  component: RouteComponent,
+  component: CustomerLayout,
 })
 
-function RouteComponent() {
-  const params = Route.useParams()
-
-  return <CustomerDetailPage customerId={params().customerId} />
+function CustomerLayout() {
+  return <Outlet />
 }

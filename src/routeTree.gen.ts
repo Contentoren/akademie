@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CustomersIndexRouteImport } from './routes/customers.index'
 import { Route as CustomersCustomerIdRouteImport } from './routes/customers.$customerId'
+import { Route as CustomersCustomerIdIndexRouteImport } from './routes/customers.$customerId.index'
 import { Route as CustomersCustomerIdFilesFileIdRouteImport } from './routes/customers.$customerId.files.$fileId'
 
 const CustomersRoute = CustomersRouteImport.update({
@@ -24,11 +26,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomersIndexRoute = CustomersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CustomersRoute,
+} as any)
 const CustomersCustomerIdRoute = CustomersCustomerIdRouteImport.update({
   id: '/$customerId',
   path: '/$customerId',
   getParentRoute: () => CustomersRoute,
 } as any)
+const CustomersCustomerIdIndexRoute =
+  CustomersCustomerIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => CustomersCustomerIdRoute,
+  } as any)
 const CustomersCustomerIdFilesFileIdRoute =
   CustomersCustomerIdFilesFileIdRouteImport.update({
     id: '/files/$fileId',
@@ -40,12 +53,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
+  '/customers/': typeof CustomersIndexRoute
+  '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/customers': typeof CustomersRouteWithChildren
-  '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
+  '/customers': typeof CustomersIndexRoute
+  '/customers/$customerId': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
 }
 export interface FileRoutesById {
@@ -53,6 +68,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
+  '/customers/': typeof CustomersIndexRoute
+  '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
 }
 export interface FileRouteTypes {
@@ -61,6 +78,8 @@ export interface FileRouteTypes {
     | '/'
     | '/customers'
     | '/customers/$customerId'
+    | '/customers/'
+    | '/customers/$customerId/'
     | '/customers/$customerId/files/$fileId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -73,6 +92,8 @@ export interface FileRouteTypes {
     | '/'
     | '/customers'
     | '/customers/$customerId'
+    | '/customers/'
+    | '/customers/$customerId/'
     | '/customers/$customerId/files/$fileId'
   fileRoutesById: FileRoutesById
 }
@@ -97,12 +118,26 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customers/': {
+      id: '/customers/'
+      path: '/'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof CustomersIndexRouteImport
+      parentRoute: typeof CustomersRoute
+    }
     '/customers/$customerId': {
       id: '/customers/$customerId'
       path: '/$customerId'
       fullPath: '/customers/$customerId'
       preLoaderRoute: typeof CustomersCustomerIdRouteImport
       parentRoute: typeof CustomersRoute
+    }
+    '/customers/$customerId/': {
+      id: '/customers/$customerId/'
+      path: '/'
+      fullPath: '/customers/$customerId/'
+      preLoaderRoute: typeof CustomersCustomerIdIndexRouteImport
+      parentRoute: typeof CustomersCustomerIdRoute
     }
     '/customers/$customerId/files/$fileId': {
       id: '/customers/$customerId/files/$fileId'
@@ -115,10 +150,12 @@ declare module '@tanstack/solid-router' {
 }
 
 interface CustomersCustomerIdRouteChildren {
+  CustomersCustomerIdIndexRoute: typeof CustomersCustomerIdIndexRoute
   CustomersCustomerIdFilesFileIdRoute: typeof CustomersCustomerIdFilesFileIdRoute
 }
 
 const CustomersCustomerIdRouteChildren: CustomersCustomerIdRouteChildren = {
+  CustomersCustomerIdIndexRoute: CustomersCustomerIdIndexRoute,
   CustomersCustomerIdFilesFileIdRoute: CustomersCustomerIdFilesFileIdRoute,
 }
 
@@ -127,10 +164,12 @@ const CustomersCustomerIdRouteWithChildren =
 
 interface CustomersRouteChildren {
   CustomersCustomerIdRoute: typeof CustomersCustomerIdRouteWithChildren
+  CustomersIndexRoute: typeof CustomersIndexRoute
 }
 
 const CustomersRouteChildren: CustomersRouteChildren = {
   CustomersCustomerIdRoute: CustomersCustomerIdRouteWithChildren,
+  CustomersIndexRoute: CustomersIndexRoute,
 }
 
 const CustomersRouteWithChildren = CustomersRoute._addFileChildren(
