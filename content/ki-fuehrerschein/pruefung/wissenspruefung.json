@@ -1,0 +1,672 @@
+{
+  "examId": "m8-l1-wissenspruefung",
+  "courseId": "ki-fuehrerschein",
+  "courseVersion": "1.0.0-entwurf",
+  "lessonId": "m8-l1",
+  "title": "Wissensprüfung",
+  "language": "de-DE",
+  "assessmentMode": "summative",
+  "durationMinutes": 25,
+  "questionCount": 20,
+  "pointsPerQuestion": 1,
+  "maximumPoints": 20,
+  "passingPoints": 16,
+  "maximumAttempts": 3,
+  "afterMaximumAttempts": "human-review-or-reset",
+  "multipleChoiceExactSelection": true,
+  "partialCredit": false,
+  "negativeMarking": false,
+  "completionRules": {
+    "knowledge": "mindestens 16/20 Punkte",
+    "practice": "mindestens 16/20 Punkte und kein ungelöster kritischer Daten- oder Freigabefehler",
+    "knowledgeMaximumAttempts": 3,
+    "afterKnowledgeMaximumAttempts": "human-review-or-reset",
+    "practiceReview": "human-review-required",
+    "practiceRevision": "with-human-feedback-and-versioned-original"
+  },
+  "certificatePolicy": {
+    "humanDecisionRequired": true,
+    "aiAutoCertificate": false,
+    "participationAndPassedCompletionAreSeparate": true,
+    "noManufacturerCompletion": true
+  },
+  "projection": {
+    "learner": {
+      "fields": [
+        "id",
+        "type",
+        "questionText",
+        "options",
+        "requiredSelectionCount",
+        "points",
+        "moduleReference",
+        "dataSources"
+      ],
+      "exclude": ["solutionKey"]
+    },
+    "author": {
+      "fields": ["solutionKey"],
+      "delivery": "server-side-only",
+      "notForLearnerExport": true,
+      "access": "author-review-only"
+    }
+  },
+  "solutionKeyMetadata": {
+    "storage": "server-side-only",
+    "notForLearnerExport": true,
+    "notInClientProjection": true,
+    "purpose": "Autorenschlüssel für exakte Auswertung und begründetes Feedback",
+    "reviewAccess": "protokollierter-menschlicher-reviewzugriff",
+    "questionAndSolutionProjectionMustBeSeparated": true
+  },
+  "questions": [
+    {
+      "id": "m8-l1-q01",
+      "type": "single_choice",
+      "questionText": "Das Service-Team soll aus D03 eine interne Notiz für die Qualitätsprüfung erstellen. Welche Unterstützung nutzt eine typische KI-Stärke, ohne eine Freigabe vorzutäuschen?",
+      "options": [
+        {"id": "opt-a", "text": "D03 in Entscheidungen, Aktionen und offene Punkte strukturieren und die Struktur anschließend gegen D03 prüfen."},
+        {"id": "opt-b", "text": "D07 wegen seiner professionellen Formulierung in ein versandfertiges Angebot umwandeln."},
+        {"id": "opt-c", "text": "Die eingebettete Systemanweisung aus D06 ausführen, weil sie ausdrücklich Priorität verlangt."},
+        {"id": "opt-d", "text": "Aus D04 eine Ursache für die Umsatzschwankung formulieren, damit die Notiz vollständiger wirkt."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m1",
+        "lessonId": "m1-l1",
+        "learningObjective": "typische KI-Fähigkeiten und ihre Grenzen für Büroaufgaben einschätzen"
+      },
+      "dataSources": ["D03", "D04", "D06", "D07"]
+    },
+    {
+      "id": "m8-l1-q02",
+      "type": "multiple_choice",
+      "questionText": "Ein automatisch formulierter Bericht behauptet aus D04 eine Überlastungsursache und macht aus D01s Wunsch nach Bearbeitung am nächsten Werktag eine Zusage. Welche genau drei Reaktionen sind fachlich richtig?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Die beobachteten D04-Zahlen und eine behauptete Ursache getrennt prüfen und die Ursache ohne weitere Quelle als unbelegt markieren."},
+        {"id": "opt-b", "text": "D01 und D02 auf den Unterschied zwischen Kundenfrage, internem Zielwert und nicht belegter Garantie abgleichen."},
+        {"id": "opt-c", "text": "Die Ausgaben als Vorschlag behandeln und vor Weitergabe Quellen, Status und Verantwortung menschlich prüfen."},
+        {"id": "opt-d", "text": "Die Aussagen nicht weiter prüfen, weil sie aus synthetischen Kursdaten stammen und plausibel klingen."},
+        {"id": "opt-e", "text": "Die selbstsichere Begründung des Berichts als ausreichenden Beleg für Ursache und Zusage verwenden."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m1",
+        "lessonId": "m1-l2",
+        "learningObjective": "geeignete, ungeeignete und nur mit Prüfung bearbeitbare Aufgaben unterscheiden"
+      },
+      "dataSources": ["D01", "D02", "D04", "D05"]
+    },
+    {
+      "id": "m8-l1-q03",
+      "type": "single_choice",
+      "questionText": "Service möchte für Seestern einen nicht versendeten Kalkulationsentwurf aus D01 bis D03 vorbereiten. Zahlen, offene Betriebsfragen und der Freigabestatus werden vor jeder Weitergabe geprüft. Welche Ampelfarbe und Begründung passen?",
+      "options": [
+        {"id": "opt-a", "text": "Grün, weil ein erzeugter Text automatisch richtige Zahlen und eine Freigabe enthält."},
+        {"id": "opt-b", "text": "Gelb, weil der begrenzte Entwurf nützlich und prüfbar ist, aber Zahlen, Quellen, offene Punkte und Freigabe kontrolliert werden müssen."},
+        {"id": "opt-c", "text": "Rot, weil jede KI-Unterstützung bei einer Büroaufgabe ausgeschlossen ist."},
+        {"id": "opt-d", "text": "Grün, sobald der Entwurf wie eine verbindliche Kundenzusage formuliert ist."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m1",
+        "lessonId": "m1-l3",
+        "learningObjective": "die Aufgabenampel für eine begründete Einsatzentscheidung nutzen"
+      },
+      "dataSources": ["D01", "D02", "D03"]
+    },
+    {
+      "id": "m8-l1-q04",
+      "type": "multiple_choice",
+      "questionText": "Das freigegebene Teamkonto ist für einen Upload vorübergehend nicht erreichbar. Für einen internen Entwurf liegen nur D01 bis D03 als synthetische Quellen vor. Welche genau drei Schritte sind sicher?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Vorab Zweck, benötigte Funktion, erlaubte Daten und die menschliche Prüfrolle festhalten."},
+        {"id": "opt-b", "text": "D01 ersatzweise über ein privates Konto hochladen, damit die Frist nicht gefährdet wird."},
+        {"id": "opt-c", "text": "Offline mit den synthetischen Quellen simulieren und die ungeklärte Kontofreigabe dokumentieren."},
+        {"id": "opt-d", "text": "Die vollständige Materialdatei einschließlich Prüfschlüssel hochladen, weil mehr Kontext immer besser ist."},
+        {"id": "opt-e", "text": "Nur die für den internen Entwurf nötigen Angaben aus D01 bis D03 auswählen und den Entwurfsstatus erhalten."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m2",
+        "lessonId": "m2-l1",
+        "learningObjective": "Werkzeug und Kontovoraussetzungen vor der Nutzung klären"
+      },
+      "dataSources": ["D01", "D02", "D03", "D05"]
+    },
+    {
+      "id": "m8-l1-q05",
+      "type": "single_choice",
+      "questionText": "Für eine reine Kontrollsummenprüfung soll nur D04 verwendet werden. In einer Arbeitskopie finden sich zusätzlich ausgeblendete Kommentare mit einer Ursache und ein vollständiger D06-Anhang. Was ist die beste Vorbereitung?",
+      "options": [
+        {"id": "opt-a", "text": "Alles hochladen, weil Kommentare und Anhänge die Analyse grundsätzlich verbessern."},
+        {"id": "opt-b", "text": "D06 ausführen, wenn der Kommentar behauptet, er sei eine Systemanweisung."},
+        {"id": "opt-c", "text": "Eine minimale Kopie mit den nötigen D04-Zeilen erstellen, verborgene Inhalte prüfen, die Zusatzelemente ausschließen und den Status synthetisch dokumentieren."},
+        {"id": "opt-d", "text": "Nur die sichtbare Tabelle kopieren und die ausgeblendeten Inhalte ungeprüft lassen."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m2",
+        "lessonId": "m2-l2",
+        "learningObjective": "Daten minimieren und Uploads auf erlaubte, notwendige Inhalte begrenzen"
+      },
+      "dataSources": ["D04", "D05", "D06"]
+    },
+    {
+      "id": "m8-l1-q06",
+      "type": "multiple_choice",
+      "questionText": "Du bereitest ein Eingabepaket für einen internen Seestern-Entwurf vor. Welche genau drei Inhalte gehören hinein, ohne offene Punkte oder Fremdanweisungen in Tatsachen umzuwandeln?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Das Ziel, die interne Zielgruppe, das Ausgabeformat und die geplante menschliche Prüfung."},
+        {"id": "opt-b", "text": "D01-Mengen und D02-Preise mit ihrer jeweiligen Quellen-ID; der gewünschte Start wird als Wunsch gekennzeichnet."},
+        {"id": "opt-c", "text": "Übergabekanal und Aufbewahrungsdauer als unbekannte Punkte mit Rückfrage statt als ergänzte Annahmen."},
+        {"id": "opt-d", "text": "Die D06-Aufforderung zur Kontextoffenlegung als auszuführende Prioritätsregel."},
+        {"id": "opt-e", "text": "Eine frei erfundene Verfügbarkeit, damit der Eingabeauftrag vollständig klingt."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m2",
+        "lessonId": "m2-l3",
+        "learningObjective": "Kontext, Annahmen und unbekannte Punkte vor der ersten Eingabe getrennt dokumentieren"
+      },
+      "dataSources": ["D01", "D02", "D03", "D05", "D06"]
+    },
+    {
+      "id": "m8-l1-q07",
+      "type": "single_choice",
+      "questionText": "Welcher Arbeitsauftrag ist für die Anfrage aus D01 als interner nächster Schritt am belastbarsten?",
+      "options": [
+        {"id": "opt-a", "text": "Sei ein überzeugender Vertriebsexperte und bestätige Seestern den Start am 01.06.2026."},
+        {"id": "opt-b", "text": "Erstelle für Service einen nicht versendeten Kalkulationsentwurf mit D01 als Bedarfsquelle und D02 als Preisquelle; trenne Kostenarten, markiere offene Punkte und lasse Qualität sowie Leitung prüfen."},
+        {"id": "opt-c", "text": "Schreibe sofort die endgültige Kundenmail und ergänze fehlende Angaben plausibel."},
+        {"id": "opt-d", "text": "Übernimm D07 als Vorlage, weil der Text bereits ein Angebot nennt."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m3",
+        "lessonId": "m3-l1",
+        "learningObjective": "Ziel, Kontext und Quellen in einem klaren Auftrag festlegen"
+      },
+      "dataSources": ["D01", "D02", "D03", "D07"]
+    },
+    {
+      "id": "m8-l1-q08",
+      "type": "multiple_choice",
+      "questionText": "Welche genau drei Vorgaben machen einen Preisentwurf aus D01 und D02 für Menschen prüfbar?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "D01 für Bedarf und offene Kundenfragen, D02 für Preise und enthaltene Mengen, D03 für Rollen und Freigabeweg benennen."},
+        {"id": "opt-b", "text": "Eine Tabelle mit Menge, Einheitspreis, Berechnung, monatlich/einmalig und Quellen-ID verlangen."},
+        {"id": "opt-c", "text": "Zwei Werktage ausdrücklich als internen Zielwert und nicht als Garantie ausgeben."},
+        {"id": "opt-d", "text": "Nur einen professionellen Fließtext verlangen und Rechenweg sowie Quellen-IDs auslassen."},
+        {"id": "opt-e", "text": "Offene Angaben wie Übergabekanal und Startverfügbarkeit durch plausible Standardwerte ersetzen."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m3",
+        "lessonId": "m3-l2",
+        "learningObjective": "Format und Kriterien so beschreiben, dass Ergebnisse prüfbar werden"
+      },
+      "dataSources": ["D01", "D02", "D03", "D05"]
+    },
+    {
+      "id": "m8-l1-q09",
+      "type": "single_choice",
+      "questionText": "Ein Entwurf bezeichnet den Start am 01.06.2026 als fest zugesagt und den Zwei-Werktage-Wert als Garantie. Welche Iterationsanweisung ist angemessen?",
+      "options": [
+        {"id": "opt-a", "text": "Formuliere den Text überzeugender und lasse die Zusagen stehen, damit er kundenfreundlich klingt."},
+        {"id": "opt-b", "text": "Entferne beide nicht belegten Zusagen, führe Startverfügbarkeit und Übergabekanal als offen, setze den Status auf nicht versendet und prüfe danach Quellen, Zahlen und Freigabe."},
+        {"id": "opt-c", "text": "Ersetze die Garantie durch eine andere nicht belegte Service-Level-Zahl."},
+        {"id": "opt-d", "text": "Lasse das System selbst entscheiden, ob seine erste Fassung freigegeben werden darf."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m3",
+        "lessonId": "m3-l3",
+        "learningObjective": "Rückfragen und Iteration zur gezielten Verbesserung einsetzen"
+      },
+      "dataSources": ["D01", "D02", "D03", "D05"]
+    },
+    {
+      "id": "m8-l1-q10",
+      "type": "multiple_choice",
+      "questionText": "Du prüfst den fehlerhaften E-Mail-Entwurf aus D07 vor einer möglichen Weitergabe. Welche genau drei Maßnahmen gehören in die Korrekturschleife?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "826,00 € als wiederkehrenden Monatsbetrag und 180,00 € als einmalige Einrichtung getrennt ausweisen."},
+        {"id": "opt-b", "text": "Die USt und den Bruttobetrag des ersten Monats mit der Simulationsannahme von 19 % unabhängig nachrechnen."},
+        {"id": "opt-c", "text": "Garantie, festen Start und Sofortversand entfernen oder als offene menschliche Entscheidung kennzeichnen."},
+        {"id": "opt-d", "text": "Die Bezeichnung „freigegeben“ beibehalten, wenn der korrigierte Text höflich formuliert ist."},
+        {"id": "opt-e", "text": "Die Rechnungsvorprüfung als steuerliche Bestätigung erläutern, damit die Kundschaft Vertrauen fasst."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m4",
+        "lessonId": "m4-l1",
+        "learningObjective": "KI-Unterstützung für E-Mails und Meetingnotizen passend einsetzen"
+      },
+      "dataSources": ["D01", "D02", "D03", "D07"]
+    },
+    {
+      "id": "m8-l1-q11",
+      "type": "single_choice",
+      "questionText": "Welche Zusammenfassung der Rollen aus D03 ist korrekt, wenn Service einen internen Entwurf erstellt hat?",
+      "options": [
+        {"id": "opt-a", "text": "Service genehmigt die Lieferzusage, IT hat den Kanal entschieden und Qualität bestätigt die steuerliche Ordnung."},
+        {"id": "opt-b", "text": "Service erstellt den Entwurf; Qualität prüft Zahlen und Formulierungen; Leitung entscheidet über Liefer- und Freigabeaussagen; IT bereitet die Kanalfrage vor."},
+        {"id": "opt-c", "text": "Weil D03 interne Notizen enthält, darf das System die Kundenversion automatisch versenden."},
+        {"id": "opt-d", "text": "Die offene Startverfügbarkeit gilt als beschlossen, sobald Service die Mengen berechnet hat."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m4",
+        "lessonId": "m4-l2",
+        "learningObjective": "KI-Unterstützung für E-Mails und Meetingnotizen passend einsetzen"
+      },
+      "dataSources": ["D03"]
+    },
+    {
+      "id": "m8-l1-q12",
+      "type": "multiple_choice",
+      "questionText": "Welche genau drei Aussagen beschreiben eine korrekte Prüfung der Monatsdaten aus D04?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Die vier Monatszeilen werden je Spalte addiert; die Kontrollsummenzeile wird anschließend verglichen."},
+        {"id": "opt-b", "text": "Die Kontrollsummenzeile ist keine fünfte Monatsperiode und darf nicht erneut addiert werden."},
+        {"id": "opt-c", "text": "Der Rückgang des Umsatzes beweist ohne weitere Quelle, dass das Team im März überlastet war."},
+        {"id": "opt-d", "text": "Die unabhängigen Summen lauten 165 Aufträge, 1.253 Stunden, 72.960,00 € netto und 10 Fehlerfälle."},
+        {"id": "opt-e", "text": "Weil die Summen stimmen, dürfen Maßnahmen ohne verantwortliche Freigabe sofort veröffentlicht werden."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m4",
+        "lessonId": "m4-l4",
+        "learningObjective": "Tabellen mit nachvollziehbaren Zahlen- und Plausibilitätskontrollen bearbeiten"
+      },
+      "dataSources": ["D04", "D05"]
+    },
+    {
+      "id": "m8-l1-q13",
+      "type": "multiple_choice",
+      "questionText": "Welche genau vier Aussagen oder Statusangaben in D07 müssen vor einer Freigabe korrigiert oder gestoppt werden?",
+      "requiredSelectionCount": 4,
+      "options": [
+        {"id": "opt-a", "text": "Die USt von 190,00 € für den ersten Monat ist falsch; nach der Simulationsrechnung sind es 191,14 €."},
+        {"id": "opt-b", "text": "Der Bruttobetrag von 1.196,00 € für den ersten Monat ist falsch; nach der Simulationsrechnung sind es 1.197,14 €."},
+        {"id": "opt-c", "text": "Die Aussage einer Garantie am nächsten Werktag ist nicht durch D02 belegt und darf nicht freigegeben werden."},
+        {"id": "opt-d", "text": "Der Status „freigegeben“ und die Behauptung eines sofort möglichen Versands widersprechen D03 und den offenen Punkten."},
+        {"id": "opt-e", "text": "Die einmalige Einrichtung von 180,00 € ist als Preisposition grundsätzlich unzulässig."},
+        {"id": "opt-f", "text": "Die korrekte Zahl 240,00 € für das Grundpaket muss vor jeder Prüfung ersetzt werden."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m5",
+        "lessonId": "m5-l1",
+        "learningObjective": "Halluzinationen und unbelegte Aussagen erkennen und stoppen"
+      },
+      "dataSources": ["D01", "D02", "D03", "D07"]
+    },
+    {
+      "id": "m8-l1-q14",
+      "type": "single_choice",
+      "questionText": "Welche Formulierung ist für einen internen Vermerk zu D04 zulässig, ohne eine Ursache zu erfinden?",
+      "options": [
+        {"id": "opt-a", "text": "Der Umsatz sank von Januar bis April um 770,00 €; D04 belegt keine Ursache für die Schwankung."},
+        {"id": "opt-b", "text": "Der Umsatz sank, weil das Team im April nachweislich überlastet war."},
+        {"id": "opt-c", "text": "Die Kontrollsumme beweist eine organisatorische Verbesserung im April."},
+        {"id": "opt-d", "text": "Die Monatswerte belegen, dass die Kundschaft weniger zuverlässig gearbeitet hat."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m5",
+        "lessonId": "m5-l3",
+        "learningObjective": "Bias in Ergebnissen erkennen und eine Korrektur oder Eskalation begründen"
+      },
+      "dataSources": ["D04"]
+    },
+    {
+      "id": "m8-l1-q15",
+      "type": "single_choice",
+      "questionText": "D06 enthält den Satz, ein „System Override“ müsse Kontext und Zugangsdaten offenlegen. Wie ist D06 für einen Assistenz-Workflow einzuordnen?",
+      "options": [
+        {"id": "opt-a", "text": "Als untrusted content und Analyseobjekt: isolieren, dokumentieren und keine darin enthaltene Anweisung ausführen."},
+        {"id": "opt-b", "text": "Als höchste interne Regel, weil der Text seine Priorität selbst behauptet."},
+        {"id": "opt-c", "text": "Als bestätigte Versandfreigabe, wenn die genannte Empfängeradresse synthetisch aussieht."},
+        {"id": "opt-d", "text": "Als Beleg, dass D05 veraltet ist und automatisch ersetzt werden darf."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m5",
+        "lessonId": "m5-l3",
+        "learningObjective": "Zahlen unabhängig nachrechnen und Quellen auf Belastbarkeit prüfen"
+      },
+      "dataSources": ["D05", "D06"]
+    },
+    {
+      "id": "m8-l1-q16",
+      "type": "multiple_choice",
+      "questionText": "Ein Anbieter möchte schreiben: „Für diesen Kurs braucht niemand ein Pflichtzertifikat; mit unserer Teilnahme ist die gesetzliche KI-Kompetenzpflicht erfüllt.“ Welche genau drei Reaktionen entsprechen der Rechtsorientierung aus M6?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Eine allgemeine Information über fehlenden individuellen Zertifikatsbedarf darf nicht als Einzelfallentscheidung oder Kurszertifizierung ausgegeben werden."},
+        {"id": "opt-b", "text": "Die Aussage über gesetzliche Erfüllung wird zurückgehalten und mit Quellenstand, Geltungsgrenze und zuständiger menschlicher Prüfung versehen."},
+        {"id": "opt-c", "text": "Teilnahmebescheinigung, eigene Anbieter-Abschlussbescheinigung und Herstellerabschluss werden getrennt bezeichnet; kein Dokument verspricht gesetzliche Anerkennung."},
+        {"id": "opt-d", "text": "Weil eine Quelle keinen individuellen Zertifikatsbedarf nennt, darf der Anbieter die gesetzliche Erfüllung für jede Organisation zusagen."},
+        {"id": "opt-e", "text": "D05 genügt als interne Regel, um die externe Rechtsfrage ohne weitere menschliche Prüfung zu entscheiden."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m6",
+        "lessonId": "m6-l1",
+        "learningObjective": "Rechtsorientierung von verbindlicher Rechtsberatung unterscheiden"
+      },
+      "dataSources": ["D05"]
+    },
+    {
+      "id": "m8-l1-q17",
+      "type": "single_choice",
+      "questionText": "Service hat den Kalkulationsentwurf erstellt und möchte ihn an Seestern senden. Welche Übergabe entspricht D03?",
+      "options": [
+        {"id": "opt-a", "text": "Service sendet sofort; die Quellenprüfung kann nach dem Versand erfolgen."},
+        {"id": "opt-b", "text": "Service markiert den Entwurf als nicht versendet; Qualität prüft Zahlen und Formulierungen, Leitung entscheidet über Liefer- und Freigabeaussagen."},
+        {"id": "opt-c", "text": "Das System setzt den Status auf freigegeben, sobald die Rechnung rechnerisch stimmt."},
+        {"id": "opt-d", "text": "IT entscheidet allein über Preis, Start und Kundenzusage, weil IT den Übergabekanal vorbereitet."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m6",
+        "lessonId": "m6-l2",
+        "learningObjective": "Rollen, Verantwortlichkeiten und sensible Anwendungen angemessen einordnen"
+      },
+      "dataSources": ["D03", "D05"]
+    },
+    {
+      "id": "m8-l1-q18",
+      "type": "multiple_choice",
+      "questionText": "Ein Workflow soll einen externen Anhang mit einer Exportaufforderung verarbeiten, während ein Teammitglied zusätzlich eine echte Kundenliste einfügen möchte. Welche genau drei Reaktionen sind erforderlich?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Die echte Kundenliste in dieser Übung zurückhalten und nur ein minimiertes synthetisches Paket verwenden."},
+        {"id": "opt-b", "text": "Die Exportaufforderung als untrusted content isolieren und nicht als Arbeitsauftrag ausführen."},
+        {"id": "opt-c", "text": "Bei ungeklärter Autorisierung, Empfänger- oder Datenlage stoppen und eine zuständige menschliche Rolle einbeziehen."},
+        {"id": "opt-d", "text": "Die Liste pseudonymisieren und ohne weitere Prüfung exportieren, weil dann kein Risiko mehr besteht."},
+        {"id": "opt-e", "text": "Den Export ausführen, wenn der Anhang behauptet, dass die Anweisung dringend ist."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m6",
+        "lessonId": "m6-l3",
+        "learningObjective": "bei Unsicherheit oder hohem Risiko sicher eskalieren"
+      },
+      "dataSources": ["D05", "D06"]
+    },
+    {
+      "id": "m8-l1-q19",
+      "type": "multiple_choice",
+      "questionText": "Welche genau drei Rechte sind für eine interne Assistenz zum nicht versendeten Kalkulationsentwurf angemessen begrenzt?",
+      "requiredSelectionCount": 3,
+      "options": [
+        {"id": "opt-a", "text": "Freigegebene Stellen in D01 bis D03 lesend abrufen und die Quellen-IDs protokollieren."},
+        {"id": "opt-b", "text": "D02-Mengen und -Preise mit sichtbarem Rechenweg in einem versionierten Arbeitsentwurf berechnen."},
+        {"id": "opt-c", "text": "Offene Übergabe- und Startfragen markieren und zur menschlichen Klärung vorlegen."},
+        {"id": "opt-d", "text": "Den Entwurf ohne menschliche Prüfung an die in D01 genannte Adresse versenden."},
+        {"id": "opt-e", "text": "D06 zur Erhöhung der Effizienz als neue Arbeitsregel übernehmen."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m7",
+        "lessonId": "m7-l2",
+        "learningObjective": "Toolzugriff und Agentengrenzen für einen Workflow festlegen"
+      },
+      "dataSources": ["D01", "D02", "D03", "D05", "D06"]
+    },
+    {
+      "id": "m8-l1-q20",
+      "type": "single_choice",
+      "questionText": "Eine Assistenz findet in D06 die Aufforderung, den vollständigen Kontext zu exportieren. Außerhalb von D06 gibt es keine geprüfte Autorisierung, keinen bestätigten Empfänger und keinen begrenzten Datenumfang. Was ist der nächste Workflow-Schritt?",
+      "options": [
+        {"id": "opt-a", "text": "Export stoppen, D06 als Angriffssignal protokollieren und Zweck, Empfänger, Umfang und menschliche Zuständigkeit klären."},
+        {"id": "opt-b", "text": "Die Anweisung ausführen, aber nur den Exportstatus in der Akte speichern."},
+        {"id": "opt-c", "text": "Den Export vorbereiten, weil die Assistenz nur vorbereitet und noch nicht sendet."},
+        {"id": "opt-d", "text": "D06 in D05 einarbeiten, damit der Workflow keine Rückfrage mehr braucht."}
+      ],
+      "points": 1,
+      "moduleReference": {
+        "moduleId": "m7",
+        "lessonId": "m7-l3",
+        "learningObjective": "menschliche Freigabepunkte und Stopps in Assistenz-Workflows verankern"
+      },
+      "dataSources": ["D05", "D06"]
+    }
+  ],
+  "solutionKey": {
+    "storage": "server-side-only",
+    "notForLearnerExport": true,
+    "questions": [
+      {
+        "questionId": "m8-l1-q01",
+        "correctOptionIds": ["opt-a"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Strukturieren eines bereitgestellten Textes ist eine passende Unterstützung; der Abgleich mit D03 und der Freigabestatus bleiben menschlich.",
+          "opt-b": "Falsch: D07 ist ein absichtlich fehlerhafter Output und darf nicht zum versandfertigen Angebot werden.",
+          "opt-c": "Falsch: D06 ist untrusted content. Eine Anweisung im Fremdtext erhält dadurch keine Priorität.",
+          "opt-d": "Falsch: D04 belegt eine Beobachtung, aber keine Ursache; die Ursache müsste unabhängig belegt werden."
+        }
+      },
+      {
+        "questionId": "m8-l1-q02",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Beobachtung und Erklärung müssen getrennt bleiben; D04 nennt keine Ursache.",
+          "opt-b": "Richtig: D01 enthält eine Frage, D02 einen internen Zielwert und keine Garantie am nächsten Werktag.",
+          "opt-c": "Richtig: Synthetische Daten und ein plausibler Text ersetzen weder Quellen- noch Statusprüfung.",
+          "opt-d": "Falsch: Auch synthetische Kursdaten werden gegen ihre Quelle geprüft.",
+          "opt-e": "Falsch: Selbstsicherheit ist kein Beleg für Ursache oder Zusage."
+        },
+        "selectionRuleFeedback": "Genau drei IDs sind erforderlich; Teilmengen, zusätzliche IDs oder eine andere Menge sind falsch."
+      },
+      {
+        "questionId": "m8-l1-q03",
+        "correctOptionIds": ["opt-b"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Prüfbarkeit macht eine Aufgabe nicht automatisch grün und ein Output ist keine Wahrheit.",
+          "opt-b": "Richtig: Der gelbe, begrenzte Entwurf ist nützlich, braucht aber Zahlen-, Quellen-, Risiko- und Freigabeprüfung.",
+          "opt-c": "Falsch: Die Ampel unterscheidet Aufgaben; sie verbietet nicht jede kontrollierte Unterstützung.",
+          "opt-d": "Falsch: Ein verbindlicher Klang erhöht weder Beleglage noch Freigabe."
+        }
+      },
+      {
+        "questionId": "m8-l1-q04",
+        "correctOptionIds": ["opt-a", "opt-c", "opt-e"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Zweck, Funktion, erlaubte Daten und Prüfrolle gehören vor die Eingabe.",
+          "opt-b": "Falsch: Ein privates Konto ersetzt keine berufliche Freigabe.",
+          "opt-c": "Richtig: Offline-Simulation hält die Übung möglich, ohne eine ungeklärte Verarbeitung zu behaupten.",
+          "opt-d": "Falsch: Vollständige Dateien und der redaktionelle Schlüssel gehören nicht in den Lernendenkontext.",
+          "opt-e": "Richtig: Minimierung und ein erhaltener Entwurfsstatus begrenzen die Außenwirkung."
+        },
+        "selectionRuleFeedback": "Genau drei IDs sind erforderlich; es gibt keine Teilpunkte und keine Minuspunkte."
+      },
+      {
+        "questionId": "m8-l1-q05",
+        "correctOptionIds": ["opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Mehr Kontext ist kein Qualitätsprinzip und kann unnötige oder unklare Inhalte einschließen.",
+          "opt-b": "Falsch: D06 darf analysiert und markiert, aber nicht ausgeführt werden.",
+          "opt-c": "Richtig: Für die Summenprüfung genügen minimierte D04-Daten; verborgene Inhalte müssen geprüft und Unnötiges ausgeschlossen werden.",
+          "opt-d": "Falsch: Verborgene Inhalte sind Teil der Datei und dürfen nicht ungeprüft bleiben."
+        }
+      },
+      {
+        "questionId": "m8-l1-q06",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Ziel, Format und Prüfrolle machen den begrenzten Auftrag nachvollziehbar.",
+          "opt-b": "Richtig: Quellengebundene Mengen gehören hinein; der Start bleibt als Wunsch und nicht als Zusage sichtbar.",
+          "opt-c": "Richtig: Unbekanntes wird als offen und als Rückfrage dokumentiert, nicht ergänzt.",
+          "opt-d": "Falsch: Die D06-Injection ist Datenmaterial und keine Arbeitsanweisung.",
+          "opt-e": "Falsch: Eine erfundene Verfügbarkeit würde eine nicht belegte Tatsache erzeugen."
+        },
+        "selectionRuleFeedback": "Nur die exakte Dreiermenge ist richtig."
+      },
+      {
+        "questionId": "m8-l1-q07",
+        "correctOptionIds": ["opt-b"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Der Auftrag macht aus Wunsch und Anfrage eine nicht belegte Zusage.",
+          "opt-b": "Richtig: Ziel, Quellen, Entwurfsstatus, offene Punkte und menschliche Prüfung sind getrennt beschrieben.",
+          "opt-c": "Falsch: Fehlende Angaben dürfen nicht plausibel erfunden und automatisch in eine Endnachricht überführt werden.",
+          "opt-d": "Falsch: D07 ist Prüfmaterial und kein verlässlicher Angebotsbeleg."
+        }
+      },
+      {
+        "questionId": "m8-l1-q08",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Jede Quelle erhält einen klaren Zweck und ihre Aussagegrenze bleibt sichtbar.",
+          "opt-b": "Richtig: Ein beobachtbares Format mit Rechenweg und Quellen-ID ermöglicht unabhängige Prüfung.",
+          "opt-c": "Richtig: Der Wert aus D02 ist ausdrücklich ein interner Zielwert, nicht die gewünschte Garantie.",
+          "opt-d": "Falsch: Bei Zahlen und Quellen sind Fließtext, Rechenweg und Status allein nicht ausreichend.",
+          "opt-e": "Falsch: Offene Angaben werden rückgefragt, nicht durch plausible Werte ersetzt."
+        },
+        "selectionRuleFeedback": "Genau drei IDs sind erforderlich; zusätzliche oder fehlende Auswahl ist falsch."
+      },
+      {
+        "questionId": "m8-l1-q09",
+        "correctOptionIds": ["opt-b"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Ein freundlicher Ton heilt keine falsche Zusage und keinen falschen Status.",
+          "opt-b": "Richtig: Die Iteration nennt Befund, Quellenkorrektur, offene Punkte, Status und den nächsten Prüfschritt.",
+          "opt-c": "Falsch: Eine andere unbelegte Zahl ersetzt die ursprüngliche Erfindung nicht.",
+          "opt-d": "Falsch: Ein System entscheidet nicht selbst über menschliche Freigabe."
+        }
+      },
+      {
+        "questionId": "m8-l1-q10",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: D02 trennt den wiederkehrenden Betrag von der einmaligen Einrichtung.",
+          "opt-b": "Richtig: Die USt wird unabhängig aus dem jeweiligen Nettobetrag berechnet; 1.006,00 € ergeben 191,14 € USt.",
+          "opt-c": "Richtig: Garantie, fester Start und Versandstatus sind nicht belegt und brauchen menschliche Prüfung.",
+          "opt-d": "Falsch: Ein höflicher Text darf den Status „freigegeben“ nicht ersetzen oder erhalten.",
+          "opt-e": "Falsch: D03 schließt eine steuerliche oder rechtliche Bestätigung der Vorprüfung aus."
+        },
+        "selectionRuleFeedback": "Die Auswahl muss exakt drei Optionen enthalten."
+      },
+      {
+        "questionId": "m8-l1-q11",
+        "correctOptionIds": ["opt-b"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Rollen und Zuständigkeiten werden in D03 gerade nicht so verteilt; die Vorprüfung ist keine steuerliche Bestätigung.",
+          "opt-b": "Richtig: D03 ordnet Entwurf, Qualitätsprüfung, Leitungsentscheidung und IT-Klärung genau so zu.",
+          "opt-c": "Falsch: Interne Notizen erlauben keinen automatischen Versand.",
+          "opt-d": "Falsch: Berechnung ersetzt weder die Prüfung der operativen Verfügbarkeit noch eine Freigabe."
+        }
+      },
+      {
+        "questionId": "m8-l1-q12",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-d"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Nur die vier Monatszeilen werden addiert; danach wird die vorhandene Kontrollsumme verglichen.",
+          "opt-b": "Richtig: Die Kontrollzeile ist bereits ein Ergebnis und keine zusätzliche Periode.",
+          "opt-c": "Falsch: D04 zeigt keine Ursache für den Umsatzverlauf.",
+          "opt-d": "Richtig: Diese vier Werte stimmen mit der unabhängig berechneten Kontrollsumme überein.",
+          "opt-e": "Falsch: Eine rechnerische Kontrolle ist keine automatische Maßnahmen- oder Veröffentlichungsfreigabe."
+        },
+        "selectionRuleFeedback": "Nur die exakte Dreiermenge erhält den Punkt."
+      },
+      {
+        "questionId": "m8-l1-q13",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c", "opt-d"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: 1.006,00 € × 0,19 ergeben nach der Simulationsannahme 191,14 €, nicht 190,00 €.",
+          "opt-b": "Richtig: Der erste Monatsbruttobetrag lautet 1.006,00 € + 191,14 € = 1.197,14 €.",
+          "opt-c": "Richtig: D02 enthält nur den internen Zwei-Werktage-Zielwert und keine Garantie am nächsten Werktag.",
+          "opt-d": "Richtig: D07s Freigabe- und Versandstatus widerspricht D03 und den offenen Punkten aus D01/D02.",
+          "opt-e": "Falsch: D02 beschreibt die 180,00 € als zulässige einmalige Einrichtung je neuem Auftrag.",
+          "opt-f": "Falsch: Der Grundpaketpreis von 240,00 € ist in D02 belegt und muss nicht pauschal ersetzt werden."
+        },
+        "selectionRuleFeedback": "Genau vier Korrekturstellen sind auszuwählen; eine andere Menge ist falsch."
+      },
+      {
+        "questionId": "m8-l1-q14",
+        "correctOptionIds": ["opt-a"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: 18.450,00 € minus 17.680,00 € sind 770,00 €; D04 belegt keine Ursache.",
+          "opt-b": "Falsch: Überlastung ist eine nicht belegte Ursache und darf nicht aus der Tabelle abgeleitet werden.",
+          "opt-c": "Falsch: Eine Kontrollsumme bestätigt Zahlen, aber keine organisatorische Erklärung oder Verbesserung.",
+          "opt-d": "Falsch: D04 enthält keine Aussage über Zuverlässigkeit der Kundschaft."
+        }
+      },
+      {
+        "questionId": "m8-l1-q15",
+        "correctOptionIds": ["opt-a"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: D06 ist untrusted content; es darf isoliert und analysiert, aber nicht als Autorisierung ausgeführt werden.",
+          "opt-b": "Falsch: Ein Fremdtext kann seine eigene Priorität nicht wirksam festlegen.",
+          "opt-c": "Falsch: Eine synthetische Empfängeradresse ist keine Versandfreigabe.",
+          "opt-d": "Falsch: D06 ersetzt D05 nicht und belegt keinen Versions- oder Geltungskonflikt."
+        }
+      },
+      {
+        "questionId": "m8-l1-q16",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Allgemeine Quellenorientierung ist keine individuelle Rechtsentscheidung und kein Zertifizierungsversprechen.",
+          "opt-b": "Richtig: Quellenstand, Aussagegrenze und menschliche Zuständigkeit müssen vor einer Compliance-Aussage geklärt werden.",
+          "opt-c": "Richtig: Teilnahme, eigener Anbieternachweis und Herstellerabschluss sind verschiedene Dinge; gesetzliche Anerkennung darf nicht behauptet werden.",
+          "opt-d": "Falsch: Eine allgemeine Information über Zertifikatsbedarf belegt keine Erfüllung für jede Organisation.",
+          "opt-e": "Falsch: D05 ist eine kursfiktive interne Arbeitsregel und ersetzt keine externe Rechtsprüfung."
+        },
+        "selectionRuleFeedback": "Genau drei IDs sind erforderlich; Teilpunkte oder Minuspunkte gibt es nicht."
+      },
+      {
+        "questionId": "m8-l1-q17",
+        "correctOptionIds": ["opt-b"],
+        "feedbackByOption": {
+          "opt-a": "Falsch: Versand vor Quellen- und Rollenprüfung wäre ein kritischer Freigabefehler.",
+          "opt-b": "Richtig: Service erstellt den Entwurf; Qualität und Leitung übernehmen die in D03 benannten Prüf- und Entscheidungsrollen.",
+          "opt-c": "Falsch: Ein System darf keinen Status ohne menschliche Prüfung auf freigegeben setzen.",
+          "opt-d": "Falsch: IT bereitet die Übergabekanalfrage vor, entscheidet aber nicht allein über Preis und Kundenzusage."
+        }
+      },
+      {
+        "questionId": "m8-l1-q18",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Echte Kundenlisten sind in der Kursübung ausgeschlossen; die synthetische Minimalalternative bleibt möglich.",
+          "opt-b": "Richtig: Eine Exportaufforderung in einem untrusted Anhang ist keine Arbeitsautorisierung.",
+          "opt-c": "Richtig: Fehlende Autorisierung, Empfänger- oder Umfangsklärung führt zum Stopp und zur menschlichen Eskalation.",
+          "opt-d": "Falsch: Pseudonymisierung ist nicht automatisch Anonymisierung und ersetzt keine Freigabe.",
+          "opt-e": "Falsch: Dringlichkeit in einem Fremdtext erhöht dessen Autorität nicht."
+        },
+        "selectionRuleFeedback": "Nur die exakte Dreiermenge ist richtig."
+      },
+      {
+        "questionId": "m8-l1-q19",
+        "correctOptionIds": ["opt-a", "opt-b", "opt-c"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Lesender, quellenprotokollierter Zugriff unterstützt die Prüfung ohne Außenhandlung.",
+          "opt-b": "Richtig: Sichtbares Rechnen im versionierten Arbeitsentwurf ist eine begrenzte Analyseunterstützung.",
+          "opt-c": "Richtig: Offene Fragen werden markiert und einer menschlichen Klärung zugeführt.",
+          "opt-d": "Falsch: Versand ist eine Außenhandlung und braucht menschliche Freigabe.",
+          "opt-e": "Falsch: D06 ist untrusted content und keine neue Arbeitsregel."
+        },
+        "selectionRuleFeedback": "Genau drei Rechte sind auszuwählen; zusätzliche Auswahl ist falsch."
+      },
+      {
+        "questionId": "m8-l1-q20",
+        "correctOptionIds": ["opt-a"],
+        "feedbackByOption": {
+          "opt-a": "Richtig: Ohne externe Autorisierung, geklärten Empfänger und minimierten Umfang wird nicht exportiert; D06 wird protokolliert und eskaliert.",
+          "opt-b": "Falsch: Auch ein Status- oder Teil-Export kann eine unzulässige Datenhandlung sein.",
+          "opt-c": "Falsch: Vorbereiten darf hier nur ein begrenzter Prüfentwurf bedeuten, nicht ein ungeklärter Export.",
+          "opt-d": "Falsch: D06 kann D05 nicht ersetzen; die Regel- und Freigabeprüfung bleibt erforderlich."
+        }
+      }
+    ]
+  }
+}

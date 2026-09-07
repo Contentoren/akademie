@@ -1,0 +1,429 @@
+{
+  "courseId": "ki-fuehrerschein",
+  "title": "KI-Führerschein für Büro- und Wissensarbeit",
+  "language": "de-DE",
+  "version": "1.0.0-entwurf",
+  "status": "entwurf",
+  "audience": "Büro- und Wissensarbeit in kleinen und mittleren Unternehmen",
+  "toolNeutral": true,
+  "externalAccountRequired": false,
+  "method": [
+    "Aufgabe wählen",
+    "Kontext bereitstellen",
+    "Ergebnis prüfen",
+    "Verantwortlich freigeben"
+  ],
+  "totalMinutes": 390,
+  "modules": [
+    {
+      "id": "m0",
+      "number": 0,
+      "title": "Startcheck",
+      "file": "module/00-startcheck.md",
+      "minutes": 15,
+      "learningObjectives": [
+        "die eigene Arbeitssituation und ein sinnvolles Lernziel benennen",
+        "Sicherheits- und Verantwortungsgrenzen vor der ersten Eingabe erkennen",
+        "zwischen Teilnahme, Übungsergebnis und verantwortlicher Freigabe unterscheiden"
+      ],
+      "lessons": [
+        {
+          "id": "m0-l1",
+          "title": "Arbeitskontext und Zielbild",
+          "minutes": 5,
+          "learningObjectives": [
+            "einen wiederkehrenden Büroarbeitsanlass beschreiben",
+            "ein überprüfbares persönliches Lernziel formulieren"
+          ]
+        },
+        {
+          "id": "m0-l2",
+          "title": "Sicherheits- und Verantwortungscheck",
+          "minutes": 5,
+          "learningObjectives": [
+            "sensible Eingaben vor einer Nutzung erkennen",
+            "die menschliche Freigabeverantwortung benennen"
+          ]
+        },
+        {
+          "id": "m0-l3",
+          "title": "Ausgangsdiagnose: Entscheiden vor Eingeben",
+          "minutes": 5,
+          "learningObjectives": [
+            "eine Arbeitsaufgabe nach Risiko und Prüfbarkeit einordnen",
+            "eine sichere nächste Handlung wählen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m1",
+      "number": 1,
+      "title": "KI sinnvoll einsetzen",
+      "file": "module/01-ki-sinnvoll-einsetzen.md",
+      "minutes": 35,
+      "learningObjectives": [
+        "typische KI-Fähigkeiten und ihre Grenzen für Büroaufgaben einschätzen",
+        "geeignete, ungeeignete und nur mit Prüfung bearbeitbare Aufgaben unterscheiden",
+        "die Aufgabenampel für eine begründete Einsatzentscheidung nutzen"
+      ],
+      "lessons": [
+        {
+          "id": "m1-l1",
+          "title": "Was KI gut kann",
+          "minutes": 10,
+          "learningObjectives": [
+            "Stärken von KI bei typischen Büro- und Wissensaufgaben benennen",
+            "eine Aufgabe nach ihrem Unterstützungsbedarf beschreiben"
+          ]
+        },
+        {
+          "id": "m1-l2",
+          "title": "Grenzen erkennen",
+          "minutes": 12,
+          "learningObjectives": [
+            "Grenzen bei Fakten, Aktualität, Verlässlichkeit und Verantwortung erkennen",
+            "eine Aufgabe wegen unklarer oder zu hoher Risiken zurückstellen"
+          ]
+        },
+        {
+          "id": "m1-l3",
+          "title": "Aufgabenampel: passend entscheiden",
+          "minutes": 13,
+          "learningObjectives": [
+            "eine Büroaufgabe mit der Aufgabenampel als grün, gelb oder rot einordnen",
+            "die Einsatzentscheidung mit Nutzen, Grenze und nächstem Prüfschritt begründen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "number": 2,
+      "title": "Sicher loslegen",
+      "file": "module/02-sicher-loslegen.md",
+      "minutes": 40,
+      "learningObjectives": [
+        "Werkzeug und Kontovoraussetzungen vor der Nutzung klären",
+        "Daten minimieren und Uploads auf erlaubte, notwendige Inhalte begrenzen",
+        "Kontext, Annahmen und unbekannte Punkte vor der ersten Eingabe getrennt dokumentieren"
+      ],
+      "lessons": [
+        {
+          "id": "m2-l1",
+          "title": "Werkzeug und Konto klären",
+          "minutes": 12,
+          "learningObjectives": [
+            "ein passendes, toolneutrales Werkzeug für eine Aufgabe beschreiben",
+            "Kontovoraussetzungen, Zugriffsrechte und den Simulationsweg klären"
+          ]
+        },
+        {
+          "id": "m2-l2",
+          "title": "Daten minimieren und Uploads vorbereiten",
+          "minutes": 14,
+          "learningObjectives": [
+            "nicht erforderliche Angaben aus einem Upload- oder Kontextpaket entfernen",
+            "synthetische Daten als solche kennzeichnen und nicht mit Echtdaten vermischen"
+          ]
+        },
+        {
+          "id": "m2-l3",
+          "title": "Sicher vor der ersten Eingabe",
+          "minutes": 14,
+          "learningObjectives": [
+            "Fakten, Annahmen, Verbote und Rückfragen in einem sicheren Eingabepaket strukturieren",
+            "eine Upload- und Eingabegrenze vor dem ersten Verarbeitungsschritt festlegen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m3",
+      "number": 3,
+      "title": "Klar beauftragen",
+      "file": "module/03-klar-beauftragen.md",
+      "minutes": 45,
+      "learningObjectives": [
+        "Ziel, Kontext und Quellen in einem klaren Auftrag festlegen",
+        "Format und Kriterien so beschreiben, dass Ergebnisse prüfbar werden",
+        "Rückfragen und Iteration zur gezielten Verbesserung einsetzen"
+      ],
+      "lessons": [
+        {
+          "id": "m3-l1",
+          "title": "Ziel und Kontext klären",
+          "minutes": 15,
+          "learningObjectives": [
+            "ein konkretes Ziel und den nötigen Kontext in einem Auftrag trennen",
+            "keine nicht belegten Fähigkeiten oder Garantien voraussetzen"
+          ]
+        },
+        {
+          "id": "m3-l2",
+          "title": "Quellen, Format und Kriterien",
+          "minutes": 15,
+          "learningObjectives": [
+            "relevante Quellen und ihre Grenzen im Auftrag angeben",
+            "Ausgabeformat und prüfbare Qualitätskriterien festlegen"
+          ]
+        },
+        {
+          "id": "m3-l3",
+          "title": "Rückfragen und Iteration steuern",
+          "minutes": 15,
+          "learningObjectives": [
+            "bei fehlendem Kontext eine Rückfrage statt einer Erfindung verlangen",
+            "eine Korrekturschleife mit konkretem Änderungsgrund formulieren"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m4",
+      "number": 4,
+      "title": "Büro-Praxislabor",
+      "file": "module/04-buero-praxislabor.md",
+      "minutes": 60,
+      "learningObjectives": [
+        "KI-Unterstützung für E-Mails und Meetingnotizen passend einsetzen",
+        "Dokumente mit klaren Vorgaben überarbeiten und ihre Aussagen prüfen",
+        "Tabellen mit nachvollziehbaren Zahlen- und Plausibilitätskontrollen bearbeiten",
+        "Büroartefakte mit Quellen, Korrekturen und Freigabestatus dokumentieren"
+      ],
+      "lessons": [
+        {
+          "id": "m4-l1",
+          "title": "E-Mails sicher entwerfen",
+          "minutes": 15,
+          "learningObjectives": [
+            "eine E-Mail für Zielgruppe, Ton und Verbindlichkeit passend entwerfen",
+            "eine Kundenanfrage in einer 12-minütigen Übung innerhalb der 15-Minuten-Lektion bearbeiten"
+          ]
+        },
+        {
+          "id": "m4-l2",
+          "title": "Meetingnotizen strukturieren",
+          "minutes": 15,
+          "learningObjectives": [
+            "Meetingnotizen in Entscheidungen, Aufgaben und offene Punkte gliedern",
+            "unbekannte oder nicht beschlossene Inhalte sichtbar lassen"
+          ]
+        },
+        {
+          "id": "m4-l3",
+          "title": "Dokumente überarbeiten",
+          "minutes": 15,
+          "learningObjectives": [
+            "ein Dokument nach Ziel, Verständlichkeit und Vorgaben überarbeiten",
+            "inhaltliche Änderungen von bloßen Stiländerungen unterscheiden"
+          ]
+        },
+        {
+          "id": "m4-l4",
+          "title": "Tabellen bearbeiten und kontrollieren",
+          "minutes": 15,
+          "learningObjectives": [
+            "eine kleine Tabelle bearbeiten und Summen, Einheiten und Kontrollwerte prüfen",
+            "Prüfschritte, Befunde, Korrekturen und offene Punkte dokumentieren"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m5",
+      "number": 5,
+      "title": "Fehlerwerkstatt",
+      "file": "module/05-fehlerwerkstatt.md",
+      "minutes": 45,
+      "learningObjectives": [
+        "Halluzinationen und unbelegte Aussagen erkennen und stoppen",
+        "Zahlen unabhängig nachrechnen und Quellen auf Belastbarkeit prüfen",
+        "Bias in Ergebnissen erkennen und eine Korrektur oder Eskalation begründen"
+      ],
+      "lessons": [
+        {
+          "id": "m5-l1",
+          "title": "Halluzinationen erkennen",
+          "minutes": 15,
+          "learningObjectives": [
+            "belegte, unbekannte und erfundene Aussagen unterscheiden",
+            "eine unbelegte Behauptung stoppen und eine sichere Formulierung wählen"
+          ]
+        },
+        {
+          "id": "m5-l2",
+          "title": "Zahlen unabhängig prüfen",
+          "minutes": 15,
+          "learningObjectives": [
+            "Summen, Einheiten und Kontrollwerte unabhängig nachrechnen",
+            "Zahlenfehler von bloßen Stil- oder Darstellungsfragen unterscheiden"
+          ]
+        },
+        {
+          "id": "m5-l3",
+          "title": "Quellen und Bias bewerten",
+          "minutes": 15,
+          "learningObjectives": [
+            "Quellen auf Beleg, Aktualität und Aufgabenbezug prüfen",
+            "mögliche Verzerrungen erkennen und eine Korrektur oder Eskalation begründen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m6",
+      "number": 6,
+      "title": "Verantwortung",
+      "file": "module/06-verantwortung.md",
+      "minutes": 35,
+      "learningObjectives": [
+        "Rechtsorientierung von verbindlicher Rechtsberatung unterscheiden",
+        "Rollen, Verantwortlichkeiten und sensible Anwendungen angemessen einordnen",
+        "bei Unsicherheit oder hohem Risiko sicher eskalieren"
+      ],
+      "lessons": [
+        {
+          "id": "m6-l1",
+          "title": "Rechtsorientierung ohne Rechtsberatung",
+          "minutes": 12,
+          "learningObjectives": [
+            "rechtlich relevante Fragen erkennen, ohne eine Rechtsentscheidung vorwegzunehmen",
+            "Informationsbedarf und Grenzen einer allgemeinen Orientierung benennen"
+          ]
+        },
+        {
+          "id": "m6-l2",
+          "title": "Rollen und Verantwortung klären",
+          "minutes": 12,
+          "learningObjectives": [
+            "Aufgaben-, Prüf- und Freigaberollen voneinander unterscheiden",
+            "eine verantwortliche Person und einen nachvollziehbaren Übergabepunkt festlegen"
+          ]
+        },
+        {
+          "id": "m6-l3",
+          "title": "Sensible Anwendungen und Eskalation",
+          "minutes": 11,
+          "learningObjectives": [
+            "sensible Anwendungen und besonders schützenswerte Entscheidungen erkennen",
+            "bei Unsicherheit, hohem Risiko oder fehlender Zuständigkeit stoppen und eskalieren"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m7",
+      "number": 7,
+      "title": "Assistenz und Workflows",
+      "file": "module/07-assistenz-und-workflows.md",
+      "minutes": 45,
+      "learningObjectives": [
+        "eine gepflegte Wissenssammlung als Grundlage für Assistenz nutzen",
+        "Toolzugriff und Agentengrenzen für einen Workflow festlegen",
+        "menschliche Freigabepunkte und Stopps in Assistenz-Workflows verankern"
+      ],
+      "lessons": [
+        {
+          "id": "m7-l1",
+          "title": "Wissenssammlung für Assistenz",
+          "minutes": 15,
+          "learningObjectives": [
+            "relevantes Wissen für eine Assistenz strukturiert sammeln",
+            "Quellen, Aktualität und Wissenslücken einer Sammlung kenntlich machen"
+          ]
+        },
+        {
+          "id": "m7-l2",
+          "title": "Toolzugriff und Agentengrenzen",
+          "minutes": 15,
+          "learningObjectives": [
+            "notwendige und unnötige Toolzugriffe für einen Workflow unterscheiden",
+            "Agentengrenzen, fehlende Befugnisse und sichere Alternativen benennen"
+          ]
+        },
+        {
+          "id": "m7-l3",
+          "title": "Menschliche Freigabepunkte",
+          "minutes": 15,
+          "learningObjectives": [
+            "menschliche Prüf- und Freigabepunkte in einem Assistenz-Workflow platzieren",
+            "eine begründete Freigabe, Rückfrage, Eskalation oder Stop-Entscheidung wählen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m8",
+      "number": 8,
+      "title": "Fahrprüfung",
+      "file": "module/08-fahrpruefung.md",
+      "minutes": 70,
+      "learningObjectives": [
+        "die Sicherheits- und Qualitätsprinzipien ohne Hilfestellung abrufen",
+        "ein synthetisches Praxisartefakt mit Prüfung und Freigabeentscheidung erstellen",
+        "die eigene Entscheidung und die nächsten Verbesserungen reflektieren"
+      ],
+      "lessons": [
+        {
+          "id": "m8-l1",
+          "title": "Wissensprüfung",
+          "minutes": 25,
+          "learningObjectives": [
+            "20 Wissensfragen nach dem exakten Antwortschema bearbeiten",
+            "Sicherheits-, Prüf- und Freigabeentscheidungen unterscheiden"
+          ]
+        },
+        {
+          "id": "m8-l2",
+          "title": "Praxisprüfung",
+          "minutes": 35,
+          "learningObjectives": [
+            "ein vollständiges Kontext-, Ergebnis- und Prüfprotokoll erstellen",
+            "eine verantwortliche Freigabeentscheidung mit Rubrikbelegen treffen"
+          ]
+        },
+        {
+          "id": "m8-l3",
+          "title": "Reflexion und Abschlussentscheidung",
+          "minutes": 10,
+          "learningObjectives": [
+            "eine konkrete Verhaltensänderung für den eigenen Arbeitsalltag festlegen",
+            "Teilnahme und bestandenen Abschluss korrekt einordnen"
+          ]
+        }
+      ]
+    }
+  ],
+  "assessment": {
+    "knowledge": {
+      "lessonId": "m8-l1",
+      "minutes": 25,
+      "questions": 20,
+      "pointsPerQuestion": 1,
+      "passingPoints": 16,
+      "multipleChoiceExactSelection": true,
+      "maximumAttempts": 3,
+      "afterMaximumAttempts": "human-review-or-reset"
+    },
+    "practice": {
+      "lessonId": "m8-l2",
+      "minutes": 35,
+      "criteria": ["a0", "a1", "a2", "a3", "a4"],
+      "pointsPerCriterion": 4,
+      "maximumPoints": 20,
+      "passingPoints": 16,
+      "humanReviewRequired": true,
+      "revisionWithFeedback": true,
+      "criticalErrorBlocksPass": true
+    },
+    "reflection": {
+      "lessonId": "m8-l3",
+      "minutes": 10,
+      "graded": false
+    },
+    "participationAndPassedCompletionAreSeparate": true,
+    "aiAutoCertificate": false,
+    "correctionsAreVersioned": true
+  }
+}
