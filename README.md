@@ -15,11 +15,17 @@ TanStack-Start-App für Kundenprofile, editierbare Textdateien und Fortschrittsa
 
 ```bash
 bun install
-cp .env.example .env
+bun run backend:deploy:development
 bun run convex:dev
 ```
 
-`convex dev` erzeugt die Werte für `CONVEX_DEPLOYMENT` und `VITE_CONVEX_URL`. Ohne `VITE_CONVEX_URL` zeigt die App eine Setup-Meldung statt der Datenoberfläche.
+Die Backend-Deployments laufen rootless über `prodctl`: Entwicklung und Produktion
+haben getrennte self-hosted Convex-Instanzen. Die ignorierten Dateien
+`.env.development` und `.env.production` enthalten lokale CLI-, Build- und
+Auth-Handoff-Werte;
+die Auth-Schlüssel werden beim Backend-Deployment erzeugt und separat in Convex
+gesetzt. Alte Cloud-Overrides wurden entfernt; falls `convex dev` `.env.local`
+neu erzeugt, bleibt sie eine CLI-generierte, nicht zu bearbeitende Datei.
 
 ## Entwicklung
 
@@ -45,10 +51,38 @@ Convex lokal starten:
 bun run convex:dev
 ```
 
-Convex deployen:
+Convex-Funktionen nach Produktion deployen:
 
 ```bash
 bun run convex:deploy
+```
+
+Backend provisionieren und deployen:
+
+```bash
+bun run backend:deploy:development
+bun run backend:deploy
+```
+
+Umgebungswerte in die jeweilige Convex-Instanz synchronisieren:
+
+```bash
+bun run backend:env:sync:development
+bun run backend:env:sync
+```
+
+Die reservierten `CONVEX_SELF_HOSTED_*`-, `CONVEX_DEPLOYMENT`- und CLI-Token
+Variablen bleiben lokal. `CONVEX_SITE_URL` ist bei self-hosted Convex ein
+verwalteter Built-in-Wert (aus dem Site-Origin), während `JWT_PRIVATE_KEY` und
+`JWKS` für `@convex-dev/auth` in Convex gesetzt werden. Die Backend-Routen sind
+`convex-akademie-dev.contentoren.de` / `api-akademie-dev.contentoren.de` sowie
+`convex-akademie.contentoren.de` / `api-akademie.contentoren.de`.
+
+Backend-E2E (Health, Auth-Discovery, Passwort-Sign-up und geschützte Query):
+
+```bash
+bun run backend:e2e:development
+bun run backend:e2e
 ```
 
 ## Checks
@@ -56,12 +90,15 @@ bun run convex:deploy
 ```bash
 bun run typecheck
 bun test
-bun run build
+bun run frontend:build
+bun run frontend:build:development
 ```
 
-## Systemd User Service
+## Systemd User Services
 
-Der lokale Preview-Service liegt unter `ops/akademie.service`. Er baut die App und startet anschließend `vite preview` auf `127.0.0.1:3120`, damit die Vorschau nur über den lokalen Reverse Proxy erreichbar ist.
+Der Development-Preview-Service liegt unter `ops/akademie.service`. Er baut ausschließlich mit `.env.development` nach `dist-development/` und startet `vite preview` auf `127.0.0.1:3120`.
+
+Das produktive SSR-Frontend liegt unter `ops/akademie-prod.service`. Es verwendet den separaten Port `3122` und die Produktionsausgabe `dist/`. Da der TanStack-Start-Build kein `index.html` für statisches Hosting erzeugt, wird er nicht zu Cloudflare Pages hochgeladen: `dist/server/server.js` wird über den lokalen SSR-Service ausgeliefert.
 
 Installation:
 
@@ -81,6 +118,13 @@ Logs prüfen:
 journalctl --user -u akademie -f
 ```
 
+Produktionsservice installieren beziehungsweise neustarten:
+
+```bash
+bun run frontend:production:install
+bun run frontend:production:restart
+```
+
 ## Docker Compose
 
 Docker Compose startet nur die Vite-App. Convex läuft separat über `bun run convex:dev` oder über ein verbundenes Convex-Deployment:
@@ -92,9 +136,33 @@ docker compose up
 ## Deployment-Hinweise
 
 - `.env` nicht committen.
-- `VITE_CONVEX_URL` pro Umgebung setzen.
-- Convex-Funktionen mit `bun run convex:deploy` deployen.
-- Danach `bun run build` und `bun run start` verwenden.
+- `.env.development` und `.env.production` nicht committen.
+- `bun run frontend:build` lädt ausschließlich `.env.production`.
+- `bun run frontend:build:development` lädt ausschließlich `.env.development`.
+- `VITE_CONVEX_URL` pro Umgebung auf die jeweilige self-hosted Route setzen.
+- Convex-Funktionen mit dem passenden Backend-Skript deployen.
+- `bun run frontend:configure` idempotentiert den Akademie-DNS-Eintrag über die vorhandenen Cloudflare-CLI-Helfer und konfiguriert `project-registry` für Preview und Produktion. Dabei werden keine fremden Projekte oder Backend-Routen geändert.
+- `bun run frontend:deploy` baut Production, aktiviert DNS/HTTPS/Reverse-Proxy und startet das produktive SSR-Frontend.
+- `bun run deploy` führt danach zusätzlich das bestehende Produktions-Backend-Deployment aus.
+
+Produktions- und Preview-Routen:
+
+| Umgebung | Frontend | Convex | Convex Site/API |
+|---|---|---|---|
+| Development | `https://preview.akademie.contentoren.de` | `https://convex-akademie-dev.contentoren.de` | `https://api-akademie-dev.contentoren.de` |
+| Production | `https://akademie.contentoren.de` | `https://convex-akademie.contentoren.de` | `https://api-akademie.contentoren.de` |
+
+`project-registry` stellt für das Frontend den globalen Caddy-Reverse-Proxy inklusive TLS bereit. Die vier Convex-Hostnames bleiben die bestehenden prodctl-/Cloudflare-Tunnel-Routen. Für einen Infrastruktur-Check:
+
+```bash
+bun run frontend:configure
+bun run backend:e2e:development
+bun run backend:e2e
+curl -fsS https://convex-akademie.contentoren.de/version
+curl -fsS https://convex-akademie-dev.contentoren.de/version
+curl -fsS https://api-akademie.contentoren.de/.well-known/openid-configuration
+curl -fsS https://api-akademie-dev.contentoren.de/.well-known/openid-configuration
+```
 
 ## Funktionen
 

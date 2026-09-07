@@ -1,0 +1,16 @@
+[Unit]
+Description=Kundenfortschritt Production Frontend
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/akademie
+Environment=PATH=%h/.local/bin:%h/.bun/bin:/usr/local/bin:/usr/bin:/bin
+Environment=APP_URL=https://akademie.contentoren.de
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/env bun run frontend:start:production
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

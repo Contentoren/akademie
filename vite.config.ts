@@ -4,12 +4,12 @@ import { solidAiSrcPlugin } from "ai-src/solid"
 import { defineConfig } from "vite"
 import solid from "vite-plugin-solid"
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   server: {
     port: 3120,
     strictPort: true,
     host: true,
-    allowedHosts: ["preview.akademie.contentoren.de", "localhost"],
+    allowedHosts: ["preview.akademie.contentoren.de", "akademie.contentoren.de", "localhost"],
   },
   plugins: [
     tailwindcss(),
@@ -40,8 +40,8 @@ export default defineConfig({
     },
     target: "esnext",
     chunkSizeWarningLimit: 1050,
-    outDir: "dist",
+    outDir: mode === "development" ? "dist-development" : "dist",
     assetsDir: "assets",
     emptyOutDir: true,
   },
-})
+}))
