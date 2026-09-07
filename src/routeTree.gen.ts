@@ -12,9 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CustomersIndexRouteImport } from './routes/customers.index'
+import { Route as CustomersVerwaltungRouteImport } from './routes/customers.verwaltung'
 import { Route as CustomersCustomerIdRouteImport } from './routes/customers.$customerId'
 import { Route as CustomersCustomerIdIndexRouteImport } from './routes/customers.$customerId.index'
+import { Route as CustomersCoursesCourseIdRouteImport } from './routes/customers.courses.$courseId'
+import { Route as CustomersCoursesCourseIdIndexRouteImport } from './routes/customers.courses.$courseId.index'
 import { Route as CustomersCustomerIdFilesFileIdRouteImport } from './routes/customers.$customerId.files.$fileId'
+import { Route as CustomersCoursesCourseIdLessonsLessonIdRouteImport } from './routes/customers.courses.$courseId.lessons.$lessonId'
 
 const CustomersRoute = CustomersRouteImport.update({
   id: '/customers',
@@ -31,6 +35,11 @@ const CustomersIndexRoute = CustomersIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CustomersRoute,
 } as any)
+const CustomersVerwaltungRoute = CustomersVerwaltungRouteImport.update({
+  id: '/verwaltung',
+  path: '/verwaltung',
+  getParentRoute: () => CustomersRoute,
+} as any)
 const CustomersCustomerIdRoute = CustomersCustomerIdRouteImport.update({
   id: '/$customerId',
   path: '/$customerId',
@@ -42,35 +51,64 @@ const CustomersCustomerIdIndexRoute =
     path: '/',
     getParentRoute: () => CustomersCustomerIdRoute,
   } as any)
+const CustomersCoursesCourseIdRoute =
+  CustomersCoursesCourseIdRouteImport.update({
+    id: '/courses/$courseId',
+    path: '/courses/$courseId',
+    getParentRoute: () => CustomersRoute,
+  } as any)
+const CustomersCoursesCourseIdIndexRoute =
+  CustomersCoursesCourseIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => CustomersCoursesCourseIdRoute,
+  } as any)
 const CustomersCustomerIdFilesFileIdRoute =
   CustomersCustomerIdFilesFileIdRouteImport.update({
     id: '/files/$fileId',
     path: '/files/$fileId',
     getParentRoute: () => CustomersCustomerIdRoute,
   } as any)
+const CustomersCoursesCourseIdLessonsLessonIdRoute =
+  CustomersCoursesCourseIdLessonsLessonIdRouteImport.update({
+    id: '/lessons/$lessonId',
+    path: '/lessons/$lessonId',
+    getParentRoute: () => CustomersCoursesCourseIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
+  '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers/': typeof CustomersIndexRoute
+  '/customers/courses/$courseId': typeof CustomersCoursesCourseIdRouteWithChildren
   '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
+  '/customers/courses/$courseId/': typeof CustomersCoursesCourseIdIndexRoute
+  '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers': typeof CustomersIndexRoute
   '/customers/$customerId': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
+  '/customers/courses/$courseId': typeof CustomersCoursesCourseIdIndexRoute
+  '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
+  '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers/': typeof CustomersIndexRoute
+  '/customers/courses/$courseId': typeof CustomersCoursesCourseIdRouteWithChildren
   '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
+  '/customers/courses/$courseId/': typeof CustomersCoursesCourseIdIndexRoute
+  '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,23 +116,34 @@ export interface FileRouteTypes {
     | '/'
     | '/customers'
     | '/customers/$customerId'
+    | '/customers/verwaltung'
     | '/customers/'
+    | '/customers/courses/$courseId'
     | '/customers/$customerId/'
     | '/customers/$customerId/files/$fileId'
+    | '/customers/courses/$courseId/'
+    | '/customers/courses/$courseId/lessons/$lessonId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/customers/verwaltung'
     | '/customers'
     | '/customers/$customerId'
     | '/customers/$customerId/files/$fileId'
+    | '/customers/courses/$courseId'
+    | '/customers/courses/$courseId/lessons/$lessonId'
   id:
     | '__root__'
     | '/'
     | '/customers'
     | '/customers/$customerId'
+    | '/customers/verwaltung'
     | '/customers/'
+    | '/customers/courses/$courseId'
     | '/customers/$customerId/'
     | '/customers/$customerId/files/$fileId'
+    | '/customers/courses/$courseId/'
+    | '/customers/courses/$courseId/lessons/$lessonId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -125,6 +174,13 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof CustomersIndexRouteImport
       parentRoute: typeof CustomersRoute
     }
+    '/customers/verwaltung': {
+      id: '/customers/verwaltung'
+      path: '/verwaltung'
+      fullPath: '/customers/verwaltung'
+      preLoaderRoute: typeof CustomersVerwaltungRouteImport
+      parentRoute: typeof CustomersRoute
+    }
     '/customers/$customerId': {
       id: '/customers/$customerId'
       path: '/$customerId'
@@ -139,12 +195,33 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof CustomersCustomerIdIndexRouteImport
       parentRoute: typeof CustomersCustomerIdRoute
     }
+    '/customers/courses/$courseId': {
+      id: '/customers/courses/$courseId'
+      path: '/courses/$courseId'
+      fullPath: '/customers/courses/$courseId'
+      preLoaderRoute: typeof CustomersCoursesCourseIdRouteImport
+      parentRoute: typeof CustomersRoute
+    }
+    '/customers/courses/$courseId/': {
+      id: '/customers/courses/$courseId/'
+      path: '/'
+      fullPath: '/customers/courses/$courseId/'
+      preLoaderRoute: typeof CustomersCoursesCourseIdIndexRouteImport
+      parentRoute: typeof CustomersCoursesCourseIdRoute
+    }
     '/customers/$customerId/files/$fileId': {
       id: '/customers/$customerId/files/$fileId'
       path: '/files/$fileId'
       fullPath: '/customers/$customerId/files/$fileId'
       preLoaderRoute: typeof CustomersCustomerIdFilesFileIdRouteImport
       parentRoute: typeof CustomersCustomerIdRoute
+    }
+    '/customers/courses/$courseId/lessons/$lessonId': {
+      id: '/customers/courses/$courseId/lessons/$lessonId'
+      path: '/lessons/$lessonId'
+      fullPath: '/customers/courses/$courseId/lessons/$lessonId'
+      preLoaderRoute: typeof CustomersCoursesCourseIdLessonsLessonIdRouteImport
+      parentRoute: typeof CustomersCoursesCourseIdRoute
     }
   }
 }
@@ -162,14 +239,35 @@ const CustomersCustomerIdRouteChildren: CustomersCustomerIdRouteChildren = {
 const CustomersCustomerIdRouteWithChildren =
   CustomersCustomerIdRoute._addFileChildren(CustomersCustomerIdRouteChildren)
 
+interface CustomersCoursesCourseIdRouteChildren {
+  CustomersCoursesCourseIdIndexRoute: typeof CustomersCoursesCourseIdIndexRoute
+  CustomersCoursesCourseIdLessonsLessonIdRoute: typeof CustomersCoursesCourseIdLessonsLessonIdRoute
+}
+
+const CustomersCoursesCourseIdRouteChildren: CustomersCoursesCourseIdRouteChildren =
+  {
+    CustomersCoursesCourseIdIndexRoute: CustomersCoursesCourseIdIndexRoute,
+    CustomersCoursesCourseIdLessonsLessonIdRoute:
+      CustomersCoursesCourseIdLessonsLessonIdRoute,
+  }
+
+const CustomersCoursesCourseIdRouteWithChildren =
+  CustomersCoursesCourseIdRoute._addFileChildren(
+    CustomersCoursesCourseIdRouteChildren,
+  )
+
 interface CustomersRouteChildren {
   CustomersCustomerIdRoute: typeof CustomersCustomerIdRouteWithChildren
+  CustomersVerwaltungRoute: typeof CustomersVerwaltungRoute
   CustomersIndexRoute: typeof CustomersIndexRoute
+  CustomersCoursesCourseIdRoute: typeof CustomersCoursesCourseIdRouteWithChildren
 }
 
 const CustomersRouteChildren: CustomersRouteChildren = {
   CustomersCustomerIdRoute: CustomersCustomerIdRouteWithChildren,
+  CustomersVerwaltungRoute: CustomersVerwaltungRoute,
   CustomersIndexRoute: CustomersIndexRoute,
+  CustomersCoursesCourseIdRoute: CustomersCoursesCourseIdRouteWithChildren,
 }
 
 const CustomersRouteWithChildren = CustomersRoute._addFileChildren(

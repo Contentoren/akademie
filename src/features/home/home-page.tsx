@@ -31,11 +31,11 @@ export function HomePage() {
             </p>
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
               <a class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-slate-950/20 transition hover:bg-blue-950" href="/customers">
-                Kunden öffnen
+                Zum Lernbereich
                 <Icon path={mdiArrowRight} class="size-4" />
               </a>
-              <a class="inline-flex items-center justify-center rounded-full bg-white px-6 py-4 text-sm font-bold text-slate-800 ring-1 ring-slate-200 transition hover:bg-slate-50" href="/customers">
-                Profil anlegen
+              <a class="inline-flex items-center justify-center rounded-full bg-white px-6 py-4 text-sm font-bold text-slate-800 ring-1 ring-slate-200 transition hover:bg-slate-50" href="/customers/verwaltung">
+                Verwaltung öffnen
               </a>
             </div>
           </div>

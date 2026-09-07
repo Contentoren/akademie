@@ -10,22 +10,24 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kundenfortschritt | TanStack Start + Convex" },
+      { title: "KI-Akademie | Lernbereich" },
       {
         name: "description",
-        content: "Kundenprofile, Textdateien und Fortschritt mit TanStack Start und Convex.",
+        content: "Lernbereich für KI-Schulungen: Kurse, Module und Lektionen im Überblick.",
       },
     ],
   }),
   component: RootOutlet,
   shellComponent: RootDocument,
   notFoundComponent: () => (
-    <section class="section-shell flex min-h-[60vh] items-center justify-center py-16 text-center">
-      <div class="max-w-xl rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-xl shadow-slate-950/[0.06] ring-1 ring-slate-100">
-        <p class="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">404</p>
-        <h1 class="mt-3 text-4xl font-black tracking-tight text-slate-950">Seite nicht gefunden</h1>
-        <p class="mt-4 text-slate-600">Diese Kundenfortschritt-Seite existiert nicht.</p>
-        <a class="mt-7 inline-flex rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white" href="/customers">Zur Kundenliste</a>
+    <section class="learn-shell flex min-h-[60vh] items-center justify-center py-16 text-center">
+      <div class="learn-card max-w-xl p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#8c928f]">404</p>
+        <h1 class="learn-serif mt-3 text-3xl font-semibold text-[#16211f]">Seite nicht gefunden</h1>
+        <p class="mt-3 text-sm leading-relaxed text-[#5a6462]">Diese Seite existiert nicht.</p>
+        <a class="mt-6 inline-flex min-h-11 items-center rounded-full bg-[#0f6f66] px-6 text-sm font-semibold text-white transition hover:bg-[#0c5a53]" href="/customers">
+          Zur Lernübersicht
+        </a>
       </div>
     </section>
   ),

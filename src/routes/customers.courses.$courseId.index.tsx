@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/solid-router"
 
+import { LearningCoursePage } from "#src/features/learning/ui/LearningCoursePage"
 import { LearningLayout } from "#src/features/learning/ui/LearningLayout"
-import { LearningOverviewPage } from "#src/features/learning/ui/LearningOverviewPage"
 
-export const Route = createFileRoute("/customers/")({
+export const Route = createFileRoute("/customers/courses/$courseId/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const params = Route.useParams()
+
   return (
     <LearningLayout>
-      <LearningOverviewPage />
+      <LearningCoursePage courseId={params().courseId} />
     </LearningLayout>
   )
 }
