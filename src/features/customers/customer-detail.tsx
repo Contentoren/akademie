@@ -65,7 +65,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
     }
 
     await removeCustomer.mutate({ customerId: id })
-    window.location.href = "/customers"
+    window.location.href = "/customers/verwaltung"
   }
 
   async function handleCreateFile(event: SubmitEvent) {
@@ -125,17 +125,39 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
     <Show
       when={loadedCustomer()}
       fallback={
-        customer.data() === null ? (
-          <section class="section-shell py-10 sm:py-14">
-            <EmptyState title="Kunde nicht gefunden" text="Das Kundenprofil existiert nicht oder wurde gelöscht." action={<a class="font-bold text-slate-950 underline" href="/customers">Zur Kundenliste</a>} />
-          </section>
-        ) : null
+        <section class="section-shell py-10 sm:py-14">
+          <Show
+            fallback={
+              <Show
+                fallback={
+                  <EmptyState
+                    title="Kunde nicht gefunden"
+                    text="Das Kundenprofil existiert nicht oder wurde gelöscht."
+                    action={<a class="font-bold text-slate-950 underline" href="/customers/verwaltung">Zur Kundenliste</a>}
+                  />
+                }
+                when={customer.isLoading()}
+              >
+                <EmptyState title="Kundenprofil wird geladen" text="Die Kundendaten werden gerade abgerufen." />
+              </Show>
+            }
+            when={customer.error()}
+          >
+            {(error) => (
+              <EmptyState
+                title="Kundenprofil konnte nicht geladen werden"
+                text={error().message}
+                action={<a class="font-bold text-slate-950 underline" href="/customers/verwaltung">Zur Kundenliste</a>}
+              />
+            )}
+          </Show>
+        </section>
       }
     >
       {(loaded) => (
     <section class="section-shell py-10 sm:py-14">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <a class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 transition hover:text-slate-950" href="/customers">
+        <a class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 transition hover:text-slate-950" href="/customers/verwaltung">
           <Icon path={mdiArrowLeft} class="size-4" />
           Zur Kundenliste
         </a>

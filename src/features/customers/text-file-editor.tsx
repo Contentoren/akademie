@@ -52,7 +52,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
 
     await removeTextFile.mutate({ fileId: id })
     const customer = loadedResult()?.customer
-    window.location.href = customer ? `/customers/${customer._id}` : "/customers"
+    window.location.href = customer ? `/customers/${customer._id}` : "/customers/verwaltung"
   }
 
   return (
@@ -61,7 +61,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
       fallback={
         loadedResult() === null || loadedResult()?.customer === null ? (
           <section class="section-shell py-10 sm:py-14">
-            <EmptyState title="Textdatei nicht gefunden" text="Die Textdatei existiert nicht oder wurde gelöscht." action={<a class="font-bold text-slate-950 underline" href="/customers">Zur Kundenliste</a>} />
+            <EmptyState title="Textdatei nicht gefunden" text="Die Textdatei existiert nicht oder wurde gelöscht." action={<a class="font-bold text-slate-950 underline" href="/customers/verwaltung">Zur Kundenliste</a>} />
           </section>
         ) : null
       }

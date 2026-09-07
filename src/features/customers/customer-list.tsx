@@ -39,6 +39,9 @@ export function CustomerListPage() {
 
   return (
     <section class="section-shell py-10 sm:py-14">
+      <a class="mb-6 inline-flex text-sm font-bold text-slate-600 transition hover:text-slate-950" href="/customers">
+        ← Zum Lernbereich
+      </a>
       <div class="mb-8 grid gap-6 lg:grid-cols-[1fr_0.42fr] lg:items-stretch">
         <div class="rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-2xl shadow-slate-950/20 sm:p-10">
           <p class="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">Kundenprofile</p>
