@@ -61,7 +61,11 @@
   },
   "imports": {
     "#src/components/*": "./src/components/*.tsx",
+    "#src/features/auth/model/*": "./src/features/auth/model/*.ts",
+    "#src/features/auth/ui/*StateCreate": "./src/features/auth/ui/*StateCreate.ts",
     "#src/features/customers/types": "./src/features/customers/types.ts",
+    "#src/features/learning/model/*": "./src/features/learning/model/*.ts",
+    "#src/features/learning/ui/*StateCreate": "./src/features/learning/ui/*StateCreate.ts",
     "#src/features/*": "./src/features/*.tsx",
     "#src/lib/convex-client": "./src/lib/convex-client.tsx",
     "#src/lib/*": "./src/lib/*.ts",
