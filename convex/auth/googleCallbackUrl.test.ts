@@ -14,4 +14,10 @@ describe("Google callback URL", () => {
 
     expect(result.success).toBe(false)
   })
+
+  test("rejects credentials embedded in the callback origin", () => {
+    const result = googleCallbackUrlCreate("https://user:password@api.example.test")
+
+    expect(result.success).toBe(false)
+  })
 })

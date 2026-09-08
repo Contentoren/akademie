@@ -1,7 +1,7 @@
 import type { GoogleAuthResult } from "./googleAuthResult"
 
 export function googleCallbackUrlCreate(
-  siteUrl = process.env.CUSTOM_AUTH_SITE_URL ?? process.env.CONVEX_SITE_URL,
+  siteUrl = process.env.CONVEX_SITE_URL,
 ): GoogleAuthResult<string> {
   const op = "googleCallbackUrlCreate"
 
@@ -14,7 +14,7 @@ export function googleCallbackUrlCreate(
   }
 
   const url = new URL(siteUrl)
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
+  if ((url.protocol !== "http:" && url.protocol !== "https:") || url.username || url.password) {
     return { success: false, op, errorMessage: "CONVEX_SITE_URL must use HTTP or HTTPS." }
   }
 
