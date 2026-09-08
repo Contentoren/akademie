@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "../ui/**/*.{ts,tsx}";
+
 :root {
   color-scheme: light;
   --academy-bg: #f7f5f1;
