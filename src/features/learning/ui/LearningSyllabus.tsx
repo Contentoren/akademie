@@ -30,8 +30,13 @@ export function LearningSyllabus(props: {
                     <Link
                       aria-current={props.currentLessonId === lesson.id ? "page" : undefined}
                       class="flex gap-4 px-4 py-3.5 transition hover:bg-[#f7f5f1] sm:px-5"
-                      classList={{ "bg-[#e3efec] hover:bg-[#e3efec]": props.currentLessonId === lesson.id }}
-                      params={{ courseId: props.course.id, lessonId: lesson.id }}
+                      classList={{
+                        "bg-[#e3efec] hover:bg-[#e3efec]": props.currentLessonId === lesson.id,
+                      }}
+                      params={{
+                        courseId: props.course.id,
+                        lessonId: lesson.id,
+                      }}
                       to="/customers/courses/$courseId/lessons/$lessonId"
                     >
                       <span

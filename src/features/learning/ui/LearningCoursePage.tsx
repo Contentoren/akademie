@@ -69,7 +69,10 @@ export function LearningCoursePage(props: { courseId: string }): JSX.Element {
                     <div class="flex flex-wrap items-center gap-3">
                       <Link
                         class="inline-flex min-h-11 items-center justify-center rounded-full bg-[#0f6f66] px-6 text-sm font-semibold text-white transition hover:bg-[#0c5a53]"
-                        params={{ courseId: course().id, lessonId: lesson().lessonId }}
+                        params={{
+                          courseId: course().id,
+                          lessonId: lesson().lessonId,
+                        }}
                         to="/customers/courses/$courseId/lessons/$lessonId"
                       >
                         <Show fallback="Kurs beginnen" when={progress().isStarted}>

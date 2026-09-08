@@ -76,7 +76,9 @@ function LearningMobileNav(): JSX.Element {
         <li>
           <Link
             activeOptions={{ exact: true }}
-            activeProps={{ class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]" }}
+            activeProps={{
+              class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]",
+            }}
             class="block whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm text-[#4b5654] learn-hairline"
             to="/customers"
           >
@@ -87,7 +89,9 @@ function LearningMobileNav(): JSX.Element {
           {(course) => (
             <li>
               <Link
-                activeProps={{ class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]" }}
+                activeProps={{
+                  class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]",
+                }}
                 class="block whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm text-[#4b5654] learn-hairline"
                 params={{ courseId: course.id }}
                 to="/customers/courses/$courseId"
@@ -99,7 +103,9 @@ function LearningMobileNav(): JSX.Element {
         </For>
         <li>
           <Link
-            activeProps={{ class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]" }}
+            activeProps={{
+              class: "border-transparent bg-[#e3efec] font-semibold text-[#0f5b54]",
+            }}
             class="block whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm text-[#4b5654] learn-hairline"
             to="/customers/verwaltung"
           >

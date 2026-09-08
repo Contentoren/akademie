@@ -19,10 +19,7 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
   return (
     <Show
       fallback={
-        <LearningNotFound
-          title="Kurs nicht gefunden"
-          description="Dieser Kurs ist im Demo-Katalog nicht enthalten."
-        />
+        <LearningNotFound title="Kurs nicht gefunden" description="Dieser Kurs ist im Demo-Katalog nicht enthalten." />
       }
       when={state.course()}
     >
@@ -155,9 +152,7 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                         </Show>
                       </button>
                       <Show when={context().next}>
-                        {(next) => (
-                          <span class="text-sm text-[#5a6462]">Als Nächstes: {next().lesson.title}</span>
-                        )}
+                        {(next) => <span class="text-sm text-[#5a6462]">Als Nächstes: {next().lesson.title}</span>}
                       </Show>
                     </div>
                   }
@@ -168,7 +163,10 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                       {(next) => (
                         <Link
                           class="inline-flex min-h-11 items-center justify-center rounded-full bg-[#0f6f66] px-6 text-sm font-semibold text-white transition hover:bg-[#0c5a53]"
-                          params={{ courseId: course().id, lessonId: next().lesson.id }}
+                          params={{
+                            courseId: course().id,
+                            lessonId: next().lesson.id,
+                          }}
                           to="/customers/courses/$courseId/lessons/$lessonId"
                         >
                           Nächste Lektion: {next().lesson.title}
@@ -226,7 +224,10 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                   {(previous) => (
                     <Link
                       class="inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-[#4b5654] transition hover:bg-[#efece5] learn-hairline"
-                      params={{ courseId: course().id, lessonId: previous().lesson.id }}
+                      params={{
+                        courseId: course().id,
+                        lessonId: previous().lesson.id,
+                      }}
                       to="/customers/courses/$courseId/lessons/$lessonId"
                     >
                       ← {previous().lesson.title}
@@ -237,7 +238,10 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                   {(next) => (
                     <Link
                       class="inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-[#4b5654] transition hover:bg-[#efece5] learn-hairline"
-                      params={{ courseId: course().id, lessonId: next().lesson.id }}
+                      params={{
+                        courseId: course().id,
+                        lessonId: next().lesson.id,
+                      }}
                       to="/customers/courses/$courseId/lessons/$lessonId"
                     >
                       {next().lesson.title} →
