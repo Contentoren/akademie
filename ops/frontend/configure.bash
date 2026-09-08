@@ -82,16 +82,23 @@ if [[ "$record_count" == 0 ]]; then
     exit 1
   }
   "$CF_BIN_DIR/cf_dns_record_add.sh" --env "$CF_ENV_FILE" "$PRODUCTION_HOST" "$server_ip"
-elif [[ "$(jq -r '.result[0].type' <<<"$record_response")" != "A" ]]; then
-  echo "Refusing to modify $PRODUCTION_HOST: existing record is not an A record" >&2
-  exit 1
-else
-  current_ip="$(jq -r '.result[0].content' <<<"$record_response")"
+elif [[ "$(jq -r .result[0].type <<<"$record_response")" == "A" ]]; then
+  current_ip="$(jq -r .result[0].content <<<"$record_response")"
   if [[ -n "$server_ip" && "$current_ip" != "$server_ip" ]]; then
     "$CF_BIN_DIR/cf_dns_record_update.sh" --env "$CF_ENV_FILE" "$PRODUCTION_HOST" "$server_ip"
   else
     echo "DNS already points $PRODUCTION_HOST -> $current_ip"
   fi
+elif [[ "$(jq -r .result[0].type <<<"$record_response")" == "CNAME" ]]; then
+  current_target="$(jq -r .result[0].content <<<"$record_response")"
+  [[ "$current_target" == *.pages.dev ]] || {
+    echo "Refusing to modify $PRODUCTION_HOST: existing CNAME is not a Pages target" >&2
+    exit 1
+  }
+  echo "DNS already points $PRODUCTION_HOST -> $current_target (Cloudflare Pages)"
+else
+  echo "Refusing to modify $PRODUCTION_HOST: unsupported DNS record type" >&2
+  exit 1
 fi
 
 configure_project() {

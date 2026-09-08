@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akademie.contentoren.de/sitemap.xml

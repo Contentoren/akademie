@@ -1,0 +1,5 @@
+# Cloudflare Pages fallback for authenticated/client-rendered Akademie routes.
+# Keep the prerendered root document at /index.html and do not use a blanket
+# fallback, so unknown paths retain the existing not-found behavior.
+/customers /spa 200
+/customers/* /spa 200
