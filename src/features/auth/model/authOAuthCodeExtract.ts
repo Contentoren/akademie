@@ -13,11 +13,11 @@ export function authOAuthCodeExtract(href: string): AuthResult<AuthOAuthCode> {
   }
 
   const url = new URL(href)
-  const code = url.searchParams.get("code")
+  const code = url.searchParams.get("authCode")
   if (!code) {
-    return { success: false, op, errorMessage: "The current location has no OAuth code." }
+    return { success: false, op, errorMessage: "The current location has no authentication code." }
   }
 
-  url.searchParams.delete("code")
+  url.searchParams.delete("authCode")
   return { success: true, data: { code, cleanedHref: `${url.pathname}${url.search}${url.hash}` } }
 }

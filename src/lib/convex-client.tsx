@@ -1,33 +1,14 @@
 import { ConvexProvider, setupConvex } from "convex-solidjs"
 import { ConvexHttpClient } from "convex/browser"
-import type { Value } from "convex/values"
-import { createContext, createSignal, onMount, Show, useContext, type JSX } from "solid-js"
+import { createContext, Show, useContext, type JSX } from "solid-js"
 
-import { authOAuthCodeExtract } from "#src/features/auth/model/authOAuthCodeExtract"
-import { authOAuthCompletionArgsCreate } from "#src/features/auth/model/authOAuthCompletionArgsCreate"
-import { authOAuthVerifierStoreCreate } from "#src/features/auth/model/authOAuthVerifierStoreCreate"
-
-import { authTokenRefreshCreate } from "./auth-token-refresh"
+import { convexClientStateCreate } from "./convexClientStateCreate"
 
 const convexUrl = import.meta.env.VITE_CONVEX_URL as string | undefined
-const JWT_STORAGE_KEY = "__convexAuthJWT"
-const REFRESH_TOKEN_STORAGE_KEY = "__convexAuthRefreshToken"
-const VERIFIER_STORAGE_KEY = "__convexAuthOAuthVerifier"
 
-type AuthActions = {
-  signIn: (provider: string, params?: FormData | Record<string, Value>) => Promise<{ signingIn: boolean; redirect?: URL }>
-  signOut: () => Promise<void>
-}
-
-type AuthState = {
-  isAuthenticated: () => boolean
-  isLoading: () => boolean
-}
-
-type AuthTokens = {
-  token: string
-  refreshToken?: string
-}
+type ConvexClientState = ReturnType<typeof convexClientStateCreate>
+type AuthActions = ConvexClientState["actions"]
+type AuthState = ConvexClientState["authState"]
 
 const AuthActionsContext = createContext<AuthActions>()
 const AuthStateContext = createContext<AuthState>()
@@ -39,134 +20,12 @@ export function ConvexClientProvider(props: { children?: JSX.Element }) {
 
   const client = setupConvex(convexUrl)
   const httpClient = new ConvexHttpClient(convexUrl)
-  const storageNamespace = convexUrl.replace(/[^a-zA-Z0-9]/g, "")
-  const storageKey = (key: string) => `${key}_${storageNamespace}`
-  const [token, setTokenState] = createSignal<string | null>(null)
-  const [isLoading, setIsLoading] = createSignal(true)
-  const authTokenRefresh = authTokenRefreshCreate<AuthTokens | null>()
-  let isSigningOut = false
-  let authConfigured = false
-
-  const verifierStore = () => authOAuthVerifierStoreCreate(storageKey(VERIFIER_STORAGE_KEY), localStorage)
-
-  const completeOAuthSignIn = async (code: string) => {
-    const verifier = verifierStore().read()
-    verifierStore().clear()
-    const result = await client.action("auth:signIn" as never, authOAuthCompletionArgsCreate(code, verifier) as never)
-    const tokens = (result as { tokens?: AuthTokens | null }).tokens ?? null
-    await setToken(tokens, true)
-  }
-
-  const storeToken = async (tokens: AuthTokens | null, shouldStore: boolean) => {
-    setTokenState(tokens?.token ?? null)
-
-    if (shouldStore) {
-      if (tokens?.token) {
-        localStorage.setItem(storageKey(JWT_STORAGE_KEY), tokens.token)
-        if (tokens.refreshToken) {
-          localStorage.setItem(storageKey(REFRESH_TOKEN_STORAGE_KEY), tokens.refreshToken)
-        }
-      } else {
-        localStorage.removeItem(storageKey(JWT_STORAGE_KEY))
-        localStorage.removeItem(storageKey(REFRESH_TOKEN_STORAGE_KEY))
-      }
-    }
-    setIsLoading(false)
-  }
-
-  const setToken = async (tokens: AuthTokens | null, shouldStore: boolean) => {
-    await storeToken(tokens, shouldStore)
-    if (tokens?.token) {
-      authConfigured = true
-      client.setAuth(async ({ forceRefreshToken }) => {
-        if (!forceRefreshToken) {
-          return token()
-        }
-        if (isSigningOut) {
-          return null
-        }
-
-        const refreshedTokens = await authTokenRefresh.run(async () => {
-          const refreshToken = localStorage.getItem(storageKey(REFRESH_TOKEN_STORAGE_KEY))
-          if (!refreshToken || isSigningOut) {
-            return null
-          }
-
-          const result = await httpClient.action("auth:signIn" as never, { refreshToken } as never)
-          return (result as { tokens?: AuthTokens | null }).tokens ?? null
-        })
-        if (isSigningOut) {
-          return null
-        }
-
-        if (refreshedTokens) {
-          await storeToken(refreshedTokens, true)
-        }
-        return refreshedTokens?.token ?? null
-      })
-      return
-    }
-
-    if (authConfigured) {
-      client.client.clearAuth()
-      client.setAuth(async () => null)
-    }
-  }
-
-  const actions: AuthActions = {
-    async signIn(provider, args) {
-      const params = args instanceof FormData ? Object.fromEntries(args.entries()) : (args ?? {})
-      const verifier = verifierStore().read()
-      verifierStore().clear()
-      const result = await client.action("auth:signIn" as never, { provider, params, verifier } as never)
-      const authResult = result as { redirect?: string; tokens?: { token: string; refreshToken: string } | null; verifier?: string }
-
-      if (authResult.redirect) {
-        const redirect = new URL(authResult.redirect)
-        verifierStore().persist(authResult.verifier)
-        window.location.href = redirect.toString()
-        return { signingIn: false, redirect }
-      }
-
-      if ("tokens" in authResult) {
-        await setToken(authResult.tokens ?? null, true)
-        return { signingIn: authResult.tokens !== null }
-      }
-
-      return { signingIn: false }
-    },
-    async signOut() {
-      isSigningOut = true
-      await authTokenRefresh.wait()
-      try {
-        await client.action("auth:signOut" as never, {} as never)
-      } catch {
-        // Signing out should still clear local tokens if the server session is already gone.
-      } finally {
-        await setToken(null, true)
-        isSigningOut = false
-      }
-    },
-  }
-
-  onMount(() => {
-    const oauthCode = authOAuthCodeExtract(window.location.href)
-    if (oauthCode.success) {
-      window.history.replaceState(null, "", oauthCode.data.cleanedHref)
-      void completeOAuthSignIn(oauthCode.data.code).catch(() => {
-        void setToken(null, true)
-      })
-      return
-    }
-
-    const storedToken = localStorage.getItem(storageKey(JWT_STORAGE_KEY))
-    void setToken(storedToken ? { token: storedToken } : null, false)
-  })
+  const state = convexClientStateCreate(httpClient)
 
   return (
     <ConvexProvider client={client}>
-      <AuthStateContext.Provider value={{ isAuthenticated: () => token() !== null, isLoading }}>
-        <AuthActionsContext.Provider value={actions}>{props.children}</AuthActionsContext.Provider>
+      <AuthStateContext.Provider value={state.authState}>
+        <AuthActionsContext.Provider value={state.actions}>{props.children}</AuthActionsContext.Provider>
       </AuthStateContext.Provider>
     </ConvexProvider>
   )
@@ -180,12 +39,22 @@ export function useAuthActions() {
   return actions
 }
 
+export function useAuthCallbackError() {
+  const state = useAuthState()
+  return state.callbackError
+}
+
 function useAuthState() {
   const state = useContext(AuthStateContext)
   if (!state) {
     throw new Error("Auth state must be used within ConvexClientProvider")
   }
   return state
+}
+
+export function useAuthToken() {
+  const state = useAuthState()
+  return () => state.session()?.token ?? ""
 }
 
 export function Authenticated(props: { children?: JSX.Element }) {

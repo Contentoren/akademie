@@ -1,7 +1,7 @@
-import { createSignal } from "solid-js"
+import { createEffect, createSignal } from "solid-js"
 
 import { authErrorMessage } from "#src/features/auth/model/authErrorMessage"
-import { useAuthActions } from "#src/lib/convex-client"
+import { useAuthActions, useAuthCallbackError } from "#src/lib/convex-client"
 
 export type SignInFlow = "signIn" | "signUp"
 
@@ -29,9 +29,17 @@ const signInCopy: Record<SignInFlow, SignInCopy> = {
 
 export function signInPageStateCreate() {
   const { signIn } = useAuthActions()
+  const callbackError = useAuthCallbackError()
   const [flow, setFlow] = createSignal<SignInFlow>("signIn")
   const [error, setError] = createSignal<string | null>(null)
   const [pending, setPending] = createSignal<"password" | "google" | null>(null)
+
+  createEffect(() => {
+    const error = callbackError()
+    if (error) {
+      setError(authErrorMessage(error))
+    }
+  })
 
   async function submitPassword(event: SubmitEvent) {
     event.preventDefault()
@@ -55,7 +63,7 @@ export function signInPageStateCreate() {
     setPending("google")
 
     try {
-      await signIn("google", { redirectTo: window.location.origin })
+      await signIn("google")
     } catch (caughtError) {
       setError(authErrorMessage(caughtError))
       setPending(null)
