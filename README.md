@@ -98,7 +98,7 @@ bun run frontend:build:development
 
 Der Development-Preview-Service liegt unter `ops/akademie.service`. Er baut ausschließlich mit `.env.development` nach `dist-development/` und startet `vite preview` auf `127.0.0.1:3120`.
 
-Das produktive SSR-Frontend liegt unter `ops/akademie-prod.service`. Es verwendet den separaten Port `3122` und die Produktionsausgabe `dist/`. Da der TanStack-Start-Build kein `index.html` für statisches Hosting erzeugt, wird er nicht zu Cloudflare Pages hochgeladen: `dist/server/server.js` wird über den lokalen SSR-Service ausgeliefert.
+Das produktive SSR-Frontend bleibt unter `ops/akademie-prod.service` auf Port `3122` als verifizierter Fallback und für interne SSR-Prüfungen aktiv. Der öffentliche Produktionskanal wird separat als Cloudflare-Pages-Deployment aus `dist/client/` ausgeliefert; `dist/server/server.js` bleibt für den bestehenden SSR-Service erhalten.
 
 Installation:
 
@@ -142,7 +142,9 @@ docker compose up
 - `VITE_CONVEX_URL` pro Umgebung auf die jeweilige self-hosted Route setzen.
 - Convex-Funktionen mit dem passenden Backend-Skript deployen.
 - `bun run frontend:configure` idempotentiert den Akademie-DNS-Eintrag über die vorhandenen Cloudflare-CLI-Helfer und konfiguriert `project-registry` für Preview und Produktion. Dabei werden keine fremden Projekte oder Backend-Routen geändert.
-- `bun run frontend:deploy` baut Production, aktiviert DNS/HTTPS/Reverse-Proxy und startet das produktive SSR-Frontend.
+- `bun run frontend:deploy` baut Production, aktiviert den bestehenden DNS/HTTPS/Reverse-Proxy und startet das produktive SSR-Frontend als unveränderten Fallback.
+- `bun run frontend:deploy:pages` baut `dist/client/` mit den öffentlichen DE/EN-Prerender-Routen, Sitemap und SPA-Shell und lädt diesen Build zum Pages-Projekt `akademie` hoch.
+- `bun run www-redirect:check`, `bun run www-redirect:create` und `bun run deploy:www-redirect` prüfen, provisionieren und deployen das getrennte Projekt `akademie-www-redirect`. Die Custom-Domain `www.akademie.contentoren.de` ist dort gebunden und leitet permanent auf den Apex weiter.
 - `bun run deploy` führt danach zusätzlich das bestehende Produktions-Backend-Deployment aus.
 
 Produktions- und Preview-Routen:
@@ -150,7 +152,7 @@ Produktions- und Preview-Routen:
 | Umgebung | Frontend | Convex | Convex Site/API |
 |---|---|---|---|
 | Development | `https://preview.akademie.contentoren.de` | `https://convex-akademie-dev.contentoren.de` | `https://api.preview.akademie.contentoren.de` |
-| Production | `https://akademie.contentoren.de` | `https://convex-akademie.contentoren.de` | `https://api.akademie.contentoren.de` |
+| Production | `https://akademie.contentoren.de` (Cloudflare Pages; SSR-Fallback bleibt aktiv) | `https://convex-akademie.contentoren.de` | `https://api.akademie.contentoren.de` |
 
 `project-registry` stellt für das Frontend den globalen Caddy-Reverse-Proxy inklusive TLS bereit. Die vier Convex-Hostnames bleiben die bestehenden prodctl-/Cloudflare-Tunnel-Routen. Für einen Infrastruktur-Check:
 
