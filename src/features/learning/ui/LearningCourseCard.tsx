@@ -5,6 +5,7 @@ import { learningAccentStyle } from "#src/features/learning/model/learningAccent
 import type { LearningCourseProgress } from "#src/features/learning/model/learningCourseProgress"
 import { LearningCourseCover } from "#src/features/learning/ui/LearningCourseCover"
 import { LearningProgressBar } from "#src/features/learning/ui/LearningProgressBar"
+import { classArr } from "../../../components/classArr"
 
 export function LearningCourseCard(props: { progress: LearningCourseProgress; minutes: number }): JSX.Element {
   return (
@@ -17,7 +18,12 @@ export function LearningCourseCard(props: { progress: LearningCourseProgress; mi
 
       <div class="flex flex-1 flex-col gap-3 p-5">
         <div class="flex items-center gap-2 text-xs">
-          <span class={`rounded-full px-2 py-0.5 font-medium ${learningAccentStyle(props.progress.course.accent).chip}`}>
+          <span
+            class={classArr(
+              "rounded-full px-2 py-0.5 font-medium",
+              learningAccentStyle(props.progress.course.accent).chip,
+            )}
+          >
             {props.progress.course.level}
           </span>
           <span class="text-[#8c928f]">

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/solid-router"
 import { For, Show, type JSX } from "solid-js"
 
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
+import { classArr } from "../../../components/classArr"
 import { learningLessonKindLabel } from "#src/features/learning/model/learningLessonKindLabel"
 import { LearningDemoNote } from "#src/features/learning/ui/LearningDemoNote"
 import { learningLessonPageStateCreate } from "#src/features/learning/ui/learningLessonPageStateCreate"
@@ -64,7 +65,12 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                   <h1 class="learn-serif text-3xl font-semibold text-[#16211f]">{context().current.lesson.title}</h1>
                   <p class="text-[0.98rem] leading-relaxed text-[#5a6462]">{context().current.lesson.summary}</p>
                   <div class="flex flex-wrap items-center gap-2 text-xs">
-                    <span class={`rounded-full px-2 py-0.5 font-medium ${learningAccentStyle(course().accent).chip}`}>
+                    <span
+                      class={classArr(
+                        "rounded-full px-2 py-0.5 font-medium",
+                        learningAccentStyle(course().accent).chip,
+                      )}
+                    >
                       {learningLessonKindLabel(context().current.lesson.kind)}
                     </span>
                     <span class="text-[#8c928f]">ca. {context().current.lesson.minutes} Min.</span>
@@ -100,7 +106,10 @@ export function LearningLessonPage(props: { courseId: string; lessonId: string }
                       <li class="flex gap-3 text-[0.95rem] leading-relaxed text-[#3d4745]">
                         <span
                           aria-hidden="true"
-                          class={`mt-2 size-1.5 shrink-0 rounded-full ${learningAccentStyle(course().accent).bar}`}
+                          class={classArr(
+                            "mt-2 size-1.5 shrink-0 rounded-full",
+                            learningAccentStyle(course().accent).bar,
+                          )}
                         />
                         {objective}
                       </li>

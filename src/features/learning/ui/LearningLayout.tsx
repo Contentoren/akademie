@@ -3,6 +3,7 @@ import { For, type JSX } from "solid-js"
 
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
 import { learningCourses } from "#src/features/learning/model/learningCourses"
+import { classArr } from "../../../components/classArr"
 
 export function LearningLayout(props: { children?: JSX.Element }): JSX.Element {
   return (
@@ -44,11 +45,14 @@ function LearningSidebar(): JSX.Element {
             <li>
               <Link
                 activeProps={{ class: navLinkActiveClass }}
-                class={`${navLinkClass} flex items-center gap-2.5`}
+                class={classArr(navLinkClass, "flex items-center gap-2.5")}
                 params={{ courseId: course.id }}
                 to="/customers/courses/$courseId"
               >
-                <span aria-hidden="true" class={`size-2.5 shrink-0 rounded-[0.2rem] ${learningAccentStyle(course.accent).bar}`} />
+                <span
+                  aria-hidden="true"
+                  class={classArr("size-2.5 shrink-0 rounded-[0.2rem]", learningAccentStyle(course.accent).bar)}
+                />
                 <span class="truncate">{course.title}</span>
               </Link>
             </li>

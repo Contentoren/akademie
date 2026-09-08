@@ -2,6 +2,7 @@ import { Link } from "@tanstack/solid-router"
 import { For, Show, type JSX } from "solid-js"
 
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
+import { classArr } from "../../../components/classArr"
 import { LearningCourseCard } from "#src/features/learning/ui/LearningCourseCard"
 import { LearningCourseCover } from "#src/features/learning/ui/LearningCourseCover"
 import { LearningDemoNote } from "#src/features/learning/ui/LearningDemoNote"
@@ -87,7 +88,10 @@ export function LearningOverviewPage(): JSX.Element {
               <li class="flex gap-4">
                 <div class="flex flex-col items-center">
                   <span
-                    class={`flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${learningAccentStyle(entry.progress.course.accent).chip}`}
+                    class={classArr(
+                      "flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                      learningAccentStyle(entry.progress.course.accent).chip,
+                    )}
                   >
                     {index() + 1}
                   </span>

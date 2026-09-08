@@ -2,13 +2,18 @@ import { Match, Switch, type JSX } from "solid-js"
 
 import type { LearningCourse } from "#src/features/learning/model/learningCourse"
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
+import { classArr } from "../../../components/classArr"
 
 /** Purely decorative course identity, drawn with CSS and inline SVG. */
 export function LearningCourseCover(props: { course: LearningCourse; class?: string }): JSX.Element {
   return (
     <div
       aria-hidden="true"
-      class={`learn-cover flex items-center justify-center ${learningAccentStyle(props.course.accent).cover} ${props.class ?? ""}`}
+      class={classArr(
+        "learn-cover flex items-center justify-center",
+        learningAccentStyle(props.course.accent).cover,
+        props.class,
+      )}
     >
       <svg class="relative z-10 size-full" fill="none" preserveAspectRatio="xMidYMid slice" viewBox="0 0 160 100">
         <Switch>

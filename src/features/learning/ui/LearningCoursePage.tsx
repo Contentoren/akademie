@@ -2,6 +2,7 @@ import { Link } from "@tanstack/solid-router"
 import { For, Show, type JSX } from "solid-js"
 
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
+import { classArr } from "../../../components/classArr"
 import { LearningCourseCover } from "#src/features/learning/ui/LearningCourseCover"
 import { LearningDemoNote } from "#src/features/learning/ui/LearningDemoNote"
 import { learningCoursePageStateCreate } from "#src/features/learning/ui/learningCoursePageStateCreate"
@@ -30,7 +31,9 @@ export function LearningCoursePage(props: { courseId: string }): JSX.Element {
 
             <div class="space-y-3">
               <div class="flex flex-wrap items-center gap-2 text-xs">
-                <span class={`rounded-full px-2 py-0.5 font-medium ${learningAccentStyle(course().accent).chip}`}>
+                <span
+                  class={classArr("rounded-full px-2 py-0.5 font-medium", learningAccentStyle(course().accent).chip)}
+                >
                   {course().level}
                 </span>
                 <span class="text-[#8c928f]">
@@ -95,7 +98,10 @@ export function LearningCoursePage(props: { courseId: string }): JSX.Element {
               <For each={course().objectives}>
                 {(objective) => (
                   <li class="flex gap-3 text-[0.95rem] leading-relaxed text-[#3d4745]">
-                    <span aria-hidden="true" class={`mt-2 size-1.5 shrink-0 rounded-full ${learningAccentStyle(course().accent).bar}`} />
+                    <span
+                      aria-hidden="true"
+                      class={classArr("mt-2 size-1.5 shrink-0 rounded-full", learningAccentStyle(course().accent).bar)}
+                    />
                     {objective}
                   </li>
                 )}

@@ -4,6 +4,7 @@ import { For, Show, type JSX } from "solid-js"
 import type { LearningCourse } from "#src/features/learning/model/learningCourse"
 import { learningAccentStyle } from "#src/features/learning/model/learningAccentStyle"
 import { learningLessonKindLabel } from "#src/features/learning/model/learningLessonKindLabel"
+import { classArr } from "../../../components/classArr"
 
 /** Navigable course outline. Every entry links to its lesson view. */
 export function LearningSyllabus(props: {
@@ -35,11 +36,11 @@ export function LearningSyllabus(props: {
                     >
                       <span
                         aria-hidden="true"
-                        class={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-[0.65rem] learn-hairline ${
-                          props.isLessonCompleted(lesson.id)
-                            ? `border-transparent text-white ${learningAccentStyle(props.course.accent).bar}`
-                            : ""
-                        }`}
+                        class={classArr(
+                          "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-[0.65rem] learn-hairline",
+                          props.isLessonCompleted(lesson.id) &&
+                            classArr("border-transparent text-white", learningAccentStyle(props.course.accent).bar),
+                        )}
                       >
                         <Show when={props.isLessonCompleted(lesson.id)}>✓</Show>
                       </span>
