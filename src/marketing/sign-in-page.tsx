@@ -3,7 +3,7 @@ import { mdiShieldCheckOutline } from "@adaptive-ds/mdi/mdiShieldCheckOutline.js
 import { Icon } from "#src/components/Icon"
 
 import { Button, Card, Field } from "#src/components/ui"
-import { AuthGoogleButton } from "#src/features/auth/ui/AuthGoogleButton"
+import { AuthGoogleButton } from "#src/marketing/ui/AuthGoogleButton"
 import { signInPageStateCreate } from "#src/features/auth/ui/signInPageStateCreate"
 
 export function SignInPage() {

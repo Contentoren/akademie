@@ -1,12 +1,23 @@
-import { Outlet } from "@tanstack/solid-router"
+import { Outlet, useRouterState } from "@tanstack/solid-router"
 import { mdiBookOpenPageVariantOutline } from "@adaptive-ds/mdi/mdiBookOpenPageVariantOutline.js"
 import { Icon } from "#src/components/Icon"
-import { createSignal } from "solid-js"
+import { createSignal, Show } from "solid-js"
 
-import { SignInPage } from "#src/features/auth/sign-in-page"
+import { marketingPathIsPublic } from "#src/marketing/model/marketingPathIsPublic"
+import { SignInPage } from "#src/marketing/sign-in-page"
 import { Authenticated, AuthLoading, Unauthenticated, useAuthActions } from "#src/lib/convex-client"
 
 export function AppShell() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname })
+
+  return (
+    <Show fallback={<Outlet />} when={!marketingPathIsPublic(pathname())}>
+      <AppAuthenticatedShell />
+    </Show>
+  )
+}
+
+function AppAuthenticatedShell() {
   return (
     <div class="flex min-h-screen flex-col">
       <header class="sticky top-0 z-40 border-b border-[#e6e1d8] bg-[#f7f5f1]/90 backdrop-blur-xl">
@@ -22,6 +33,9 @@ export function AppShell() {
           </a>
 
           <nav class="flex items-center gap-1 text-sm text-[#4b5654]">
+            <a class="rounded-full px-4 py-2 transition hover:bg-[#efece5] hover:text-[#16211f]" href="/de">
+              Website
+            </a>
             <Authenticated>
               <SignOutButton />
             </Authenticated>

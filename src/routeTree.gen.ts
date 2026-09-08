@@ -9,17 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EnRouteImport } from './routes/en'
+import { Route as DeRouteImport } from './routes/de'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as DeIndexRouteImport } from './routes/de.index'
 import { Route as CustomersIndexRouteImport } from './routes/customers.index'
 import { Route as CustomersVerwaltungRouteImport } from './routes/customers.verwaltung'
 import { Route as CustomersCustomerIdRouteImport } from './routes/customers.$customerId'
+import { Route as EnCoursesIndexRouteImport } from './routes/en.courses.index'
+import { Route as DeKurseIndexRouteImport } from './routes/de.kurse.index'
 import { Route as CustomersCustomerIdIndexRouteImport } from './routes/customers.$customerId.index'
+import { Route as EnCoursesSlugRouteImport } from './routes/en.courses.$slug'
+import { Route as DeKurseSlugRouteImport } from './routes/de.kurse.$slug'
 import { Route as CustomersCoursesCourseIdRouteImport } from './routes/customers.courses.$courseId'
 import { Route as CustomersCoursesCourseIdIndexRouteImport } from './routes/customers.courses.$courseId.index'
 import { Route as CustomersCustomerIdFilesFileIdRouteImport } from './routes/customers.$customerId.files.$fileId'
 import { Route as CustomersCoursesCourseIdLessonsLessonIdRouteImport } from './routes/customers.courses.$courseId.lessons.$lessonId'
 
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeRoute = DeRouteImport.update({
+  id: '/de',
+  path: '/de',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CustomersRoute = CustomersRouteImport.update({
   id: '/customers',
   path: '/customers',
@@ -29,6 +47,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
+const DeIndexRoute = DeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DeRoute,
 } as any)
 const CustomersIndexRoute = CustomersIndexRouteImport.update({
   id: '/',
@@ -45,12 +73,32 @@ const CustomersCustomerIdRoute = CustomersCustomerIdRouteImport.update({
   path: '/$customerId',
   getParentRoute: () => CustomersRoute,
 } as any)
+const EnCoursesIndexRoute = EnCoursesIndexRouteImport.update({
+  id: '/courses/',
+  path: '/courses/',
+  getParentRoute: () => EnRoute,
+} as any)
+const DeKurseIndexRoute = DeKurseIndexRouteImport.update({
+  id: '/kurse/',
+  path: '/kurse/',
+  getParentRoute: () => DeRoute,
+} as any)
 const CustomersCustomerIdIndexRoute =
   CustomersCustomerIdIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => CustomersCustomerIdRoute,
   } as any)
+const EnCoursesSlugRoute = EnCoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => EnRoute,
+} as any)
+const DeKurseSlugRoute = DeKurseSlugRouteImport.update({
+  id: '/kurse/$slug',
+  path: '/kurse/$slug',
+  getParentRoute: () => DeRoute,
+} as any)
 const CustomersCoursesCourseIdRoute =
   CustomersCoursesCourseIdRouteImport.update({
     id: '/courses/$courseId',
@@ -79,11 +127,19 @@ const CustomersCoursesCourseIdLessonsLessonIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
+  '/de': typeof DeRouteWithChildren
+  '/en': typeof EnRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
   '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers/': typeof CustomersIndexRoute
+  '/de/': typeof DeIndexRoute
+  '/en/': typeof EnIndexRoute
   '/customers/courses/$courseId': typeof CustomersCoursesCourseIdRouteWithChildren
+  '/de/kurse/$slug': typeof DeKurseSlugRoute
+  '/en/courses/$slug': typeof EnCoursesSlugRoute
   '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
+  '/de/kurse/': typeof DeKurseIndexRoute
+  '/en/courses/': typeof EnCoursesIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
   '/customers/courses/$courseId/': typeof CustomersCoursesCourseIdIndexRoute
   '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
@@ -92,7 +148,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers': typeof CustomersIndexRoute
+  '/de': typeof DeIndexRoute
+  '/en': typeof EnIndexRoute
+  '/de/kurse/$slug': typeof DeKurseSlugRoute
+  '/en/courses/$slug': typeof EnCoursesSlugRoute
   '/customers/$customerId': typeof CustomersCustomerIdIndexRoute
+  '/de/kurse': typeof DeKurseIndexRoute
+  '/en/courses': typeof EnCoursesIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
   '/customers/courses/$courseId': typeof CustomersCoursesCourseIdIndexRoute
   '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
@@ -101,11 +163,19 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/customers': typeof CustomersRouteWithChildren
+  '/de': typeof DeRouteWithChildren
+  '/en': typeof EnRouteWithChildren
   '/customers/$customerId': typeof CustomersCustomerIdRouteWithChildren
   '/customers/verwaltung': typeof CustomersVerwaltungRoute
   '/customers/': typeof CustomersIndexRoute
+  '/de/': typeof DeIndexRoute
+  '/en/': typeof EnIndexRoute
   '/customers/courses/$courseId': typeof CustomersCoursesCourseIdRouteWithChildren
+  '/de/kurse/$slug': typeof DeKurseSlugRoute
+  '/en/courses/$slug': typeof EnCoursesSlugRoute
   '/customers/$customerId/': typeof CustomersCustomerIdIndexRoute
+  '/de/kurse/': typeof DeKurseIndexRoute
+  '/en/courses/': typeof EnCoursesIndexRoute
   '/customers/$customerId/files/$fileId': typeof CustomersCustomerIdFilesFileIdRoute
   '/customers/courses/$courseId/': typeof CustomersCoursesCourseIdIndexRoute
   '/customers/courses/$courseId/lessons/$lessonId': typeof CustomersCoursesCourseIdLessonsLessonIdRoute
@@ -115,11 +185,19 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/customers'
+    | '/de'
+    | '/en'
     | '/customers/$customerId'
     | '/customers/verwaltung'
     | '/customers/'
+    | '/de/'
+    | '/en/'
     | '/customers/courses/$courseId'
+    | '/de/kurse/$slug'
+    | '/en/courses/$slug'
     | '/customers/$customerId/'
+    | '/de/kurse/'
+    | '/en/courses/'
     | '/customers/$customerId/files/$fileId'
     | '/customers/courses/$courseId/'
     | '/customers/courses/$courseId/lessons/$lessonId'
@@ -128,7 +206,13 @@ export interface FileRouteTypes {
     | '/'
     | '/customers/verwaltung'
     | '/customers'
+    | '/de'
+    | '/en'
+    | '/de/kurse/$slug'
+    | '/en/courses/$slug'
     | '/customers/$customerId'
+    | '/de/kurse'
+    | '/en/courses'
     | '/customers/$customerId/files/$fileId'
     | '/customers/courses/$courseId'
     | '/customers/courses/$courseId/lessons/$lessonId'
@@ -136,11 +220,19 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/customers'
+    | '/de'
+    | '/en'
     | '/customers/$customerId'
     | '/customers/verwaltung'
     | '/customers/'
+    | '/de/'
+    | '/en/'
     | '/customers/courses/$courseId'
+    | '/de/kurse/$slug'
+    | '/en/courses/$slug'
     | '/customers/$customerId/'
+    | '/de/kurse/'
+    | '/en/courses/'
     | '/customers/$customerId/files/$fileId'
     | '/customers/courses/$courseId/'
     | '/customers/courses/$courseId/lessons/$lessonId'
@@ -149,10 +241,26 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CustomersRoute: typeof CustomersRouteWithChildren
+  DeRoute: typeof DeRouteWithChildren
+  EnRoute: typeof EnRouteWithChildren
 }
 
 declare module '@tanstack/solid-router' {
   interface FileRoutesByPath {
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de': {
+      id: '/de'
+      path: '/de'
+      fullPath: '/de'
+      preLoaderRoute: typeof DeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/customers': {
       id: '/customers'
       path: '/customers'
@@ -166,6 +274,20 @@ declare module '@tanstack/solid-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/de/': {
+      id: '/de/'
+      path: '/'
+      fullPath: '/de/'
+      preLoaderRoute: typeof DeIndexRouteImport
+      parentRoute: typeof DeRoute
     }
     '/customers/': {
       id: '/customers/'
@@ -188,12 +310,40 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof CustomersCustomerIdRouteImport
       parentRoute: typeof CustomersRoute
     }
+    '/en/courses/': {
+      id: '/en/courses/'
+      path: '/courses'
+      fullPath: '/en/courses/'
+      preLoaderRoute: typeof EnCoursesIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/de/kurse/': {
+      id: '/de/kurse/'
+      path: '/kurse'
+      fullPath: '/de/kurse/'
+      preLoaderRoute: typeof DeKurseIndexRouteImport
+      parentRoute: typeof DeRoute
+    }
     '/customers/$customerId/': {
       id: '/customers/$customerId/'
       path: '/'
       fullPath: '/customers/$customerId/'
       preLoaderRoute: typeof CustomersCustomerIdIndexRouteImport
       parentRoute: typeof CustomersCustomerIdRoute
+    }
+    '/en/courses/$slug': {
+      id: '/en/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/en/courses/$slug'
+      preLoaderRoute: typeof EnCoursesSlugRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/de/kurse/$slug': {
+      id: '/de/kurse/$slug'
+      path: '/kurse/$slug'
+      fullPath: '/de/kurse/$slug'
+      preLoaderRoute: typeof DeKurseSlugRouteImport
+      parentRoute: typeof DeRoute
     }
     '/customers/courses/$courseId': {
       id: '/customers/courses/$courseId'
@@ -274,9 +424,39 @@ const CustomersRouteWithChildren = CustomersRoute._addFileChildren(
   CustomersRouteChildren,
 )
 
+interface DeRouteChildren {
+  DeIndexRoute: typeof DeIndexRoute
+  DeKurseSlugRoute: typeof DeKurseSlugRoute
+  DeKurseIndexRoute: typeof DeKurseIndexRoute
+}
+
+const DeRouteChildren: DeRouteChildren = {
+  DeIndexRoute: DeIndexRoute,
+  DeKurseSlugRoute: DeKurseSlugRoute,
+  DeKurseIndexRoute: DeKurseIndexRoute,
+}
+
+const DeRouteWithChildren = DeRoute._addFileChildren(DeRouteChildren)
+
+interface EnRouteChildren {
+  EnIndexRoute: typeof EnIndexRoute
+  EnCoursesSlugRoute: typeof EnCoursesSlugRoute
+  EnCoursesIndexRoute: typeof EnCoursesIndexRoute
+}
+
+const EnRouteChildren: EnRouteChildren = {
+  EnIndexRoute: EnIndexRoute,
+  EnCoursesSlugRoute: EnCoursesSlugRoute,
+  EnCoursesIndexRoute: EnCoursesIndexRoute,
+}
+
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CustomersRoute: CustomersRouteWithChildren,
+  DeRoute: DeRouteWithChildren,
+  EnRoute: EnRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

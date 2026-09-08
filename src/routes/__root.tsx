@@ -11,6 +11,8 @@ export const Route = createRootRoute({
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "KI-Akademie | Lernbereich" },
+      { property: "og:site_name", content: "KI-Akademie" },
+      { property: "og:type", content: "website" },
       {
         name: "description",
         content: "Lernbereich für KI-Schulungen: Kurse, Module und Lektionen im Überblick.",
