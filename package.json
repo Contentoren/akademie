@@ -14,6 +14,18 @@
     "frontend:configure": "bash ops/frontend/configure.bash",
     "frontend:upload": "bash ops/frontend/upload.bash",
     "frontend:deploy": "bun run frontend:build && bun run frontend:configure && bun run frontend:upload",
+    "frontend:upload:pages": "bunx wrangler pages deploy ./dist/client --project-name=akademie --branch=main --commit-dirty=true",
+    "frontend:deploy:pages": "bun run frontend:build && bun run frontend:upload:pages",
+    "assets": "bash ops/assets/assets.bash",
+    "assets:prepare": "mkdir -p ./public/images ./public/videos",
+    "assets:upload": "bun run assets upload-all . --integration-note \"Update project assets\" --wait --json",
+    "assets:list": "bun run assets list --include outputs,metadata,history --json",
+    "assets:lists": "bun run assets lists --dir src/app/assets",
+    "assets:lists:check": "bun run assets lists --check --dir src/app/assets",
+    "assets:check": "bun run assets:lists:check",
+    "assets:doctor": "bun run assets doctor --environment development --json",
+    "catalog": "bun run src/public-catalog/cli.ts",
+    "catalog:json": "bun run src/public-catalog/cli.ts json",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "check": "bun test",
@@ -31,10 +43,16 @@
     "preview:stop": "systemctl --user stop akademie",
     "preview:uninstall": "systemctl --user stop akademie && systemctl --user disable akademie && rm -f ~/.config/systemd/user/akademie.service && systemctl --user daemon-reload",
     "frontend:production:install": "bun run frontend:build && bash ops/install-production-service.bash",
-    "frontend:production:restart": "systemctl --user restart akademie-prod"
+    "frontend:production:restart": "systemctl --user restart akademie-prod",
+    "www-redirect:create": "bunx wrangler pages project create akademie-www-redirect --production-branch=main",
+    "deploy:www-redirect": "bunx wrangler pages deploy . --cwd src/www-redirect --project-name akademie-www-redirect --branch main --commit-dirty=true",
+    "www-redirect:check": "bash ops/www-redirect/check.bash",
+    "www-redirect:verify": "curl -sI \"https://www.akademie.contentoren.de/some/path?param=1\" | grep -iE 'location|http/'",
+    "build:library": "rm -rf ./dist && bun tsc -p ./tsconfig.lib.json"
   },
   "dependencies": {
-    "@adaptive-ds/mdi": "^0.1.0",
+    "@adaptive-ds/assets-service": "^0.6.0",
+    "@adaptive-ds/mdi": "^0.1.2",
     "@auth/core": "0.37.0",
     "@convex-dev/auth": "^0.0.94",
     "@tanstack/solid-router": "^1.170.18",
@@ -43,7 +61,13 @@
     "convex": "^1.42.2",
     "convex-solidjs": "^0.0.3",
     "solid-js": "^1.9.14",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "@adaptive-ds/utils": "^0.13.0",
+    "@corvu/dialog": "^0.2.4",
+    "@corvu/popover": "^0.2.0",
+    "@solid-primitives/keyed": "^1.5.3",
+    "@solid-primitives/scheduled": "^1.5.3",
+    "valibot": "^1.4.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -52,7 +76,8 @@
     "ai-src": "^0.1.0",
     "typescript": "^7.0.2",
     "vite": "^8.1.5",
-    "vite-plugin-solid": "^2.11.12"
+    "vite-plugin-solid": "^2.11.12",
+    "wrangler": "^4.100.0"
   },
   "prettier": {
     "semi": false,
@@ -67,11 +92,35 @@
     "#src/features/learning/model/*": "./src/features/learning/model/*.ts",
     "#src/features/learning/ui/*StateCreate": "./src/features/learning/ui/*StateCreate.ts",
     "#src/features/*": "./src/features/*.tsx",
+    "#src/public-catalog/*": "./src/public-catalog/*.ts",
+    "#src/marketing/model/*": "./src/marketing/model/*.ts",
+    "#src/marketing/*": "./src/marketing/*.tsx",
     "#src/lib/convex-client": "./src/lib/convex-client.tsx",
     "#src/lib/*": "./src/lib/*.ts",
     "#src/*": "./src/*",
-    "#convex/*": "./convex/*"
+    "#convex/*": "./convex/*",
+    "#ui/*.js": "./ui/*.ts",
+    "#ui/*.jsx": "./ui/*.tsx",
+    "#ui/*": "./ui/*",
+    "#utils/*": "@adaptive-ds/utils/*"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./public-catalog": {
+      "types": "./dist/public-catalog/index.d.ts",
+      "import": "./dist/public-catalog/index.js"
+    },
+    "./*.js": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    },
+    "./package.json": "./package.json"
+  }
 }
