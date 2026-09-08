@@ -48,6 +48,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     VITE_*)
       continue
       ;;
+    # These belonged to the removed Convex Auth/JWKS protocol.
+    JWT_PRIVATE_KEY|JWKS|CUSTOM_AUTH_SITE_URL)
+      continue
+      ;;
   esac
 
   if [[ "$value" == \"*\" && "$value" == *\" ]]; then
@@ -65,7 +69,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   values+=("$value")
 done <"$ENV_FILE"
 
-for required in CONVEX_SITE_URL JWT_PRIVATE_KEY JWKS; do
+for required in CONVEX_SITE_URL AUTH_SECRET AUTH_GOOGLE_ID AUTH_GOOGLE_SECRET APP_URL; do
   if [[ -z "${seen[$required]+x}" ]]; then
     echo "Error: $required is required in $ENV_FILE" >&2
     exit 4

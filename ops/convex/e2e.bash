@@ -19,6 +19,7 @@ set +a
 
 : "${CONVEX_SELF_HOSTED_URL:?CONVEX_SELF_HOSTED_URL is required}"
 : "${CONVEX_SITE_URL:?CONVEX_SITE_URL is required}"
+: "${APP_URL:?APP_URL is required}"
 
 cd "$REPO_DIR"
 ENV_NAME="$ENV_NAME" bun -e '
@@ -31,25 +32,25 @@ if (!convexUrl || !siteUrl) throw new Error("Convex URLs are required")
 const versionResponse = await fetch(`${convexUrl}/version`)
 if (!versionResponse.ok) throw new Error(`Convex health check failed: ${versionResponse.status}`)
 
-const discoveryResponse = await fetch(`${siteUrl}/.well-known/openid-configuration`)
-if (!discoveryResponse.ok) throw new Error(`Convex Auth discovery failed: ${discoveryResponse.status}`)
-const discovery = await discoveryResponse.json()
-if (discovery.issuer !== siteUrl || discovery.jwks_uri !== `${siteUrl}/.well-known/jwks.json`) {
-  throw new Error("Convex Auth discovery points at the wrong site URL")
+const googleStartResponse = await fetch(`${siteUrl}/api/auth/google?returnTo=${encodeURIComponent("/customers")}`, {
+  redirect: "manual",
+})
+if (googleStartResponse.status !== 302) throw new Error(`Custom Google OAuth start failed: ${googleStartResponse.status}`)
+if (!googleStartResponse.headers.get("location")?.startsWith("https://accounts.google.com/")) {
+  throw new Error("Custom Google OAuth start did not redirect to Google")
+}
+if (!googleStartResponse.headers.get("set-cookie")?.includes("akademie_google_oauth_state=")) {
+  throw new Error("Custom Google OAuth start did not set its state cookie")
 }
 
 const client = new ConvexHttpClient(convexUrl)
 const email = `akademie-e2e-${Date.now()}-${Math.random().toString(36).slice(2)}@example.invalid`
 const password = `E2e-${crypto.randomUUID()}-password`
-const signInResult = await client.action("auth:signIn", {
-  provider: "password",
-  params: { flow: "signUp", email, password },
-})
-const token = signInResult?.tokens?.token
-if (typeof token !== "string" || token.length < 32) throw new Error("Convex Auth did not return a JWT")
+const signUpResult = await client.action("auth:signUp", { email, password })
+const token = signUpResult?.token
+if (typeof token !== "string" || token.length < 32) throw new Error("Custom auth did not return a JWT")
 
-client.setAuth(token)
-const overview = await client.query("dashboard:overview", {})
+const overview = await client.query("dashboard:overview", { token })
 if (typeof overview?.customerCount !== "number") throw new Error("Authenticated dashboard query failed")
 
 console.log(`Backend E2E passed (${process.env.ENV_NAME ?? "configured"})`)

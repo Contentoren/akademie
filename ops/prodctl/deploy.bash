@@ -19,12 +19,14 @@ case "$ENV_NAME" in
     APP="${PRODCTL_APP:-akademie-dev}"
     CONVEX_HOST="${CONVEX_HOST:-convex-akademie-dev.contentoren.de}"
     API_HOST="${API_HOST:-api.preview.akademie.contentoren.de}"
+    FRONTEND_HOST="${FRONTEND_HOST:-preview.akademie.contentoren.de}"
     INSTANCE_NAME=development
     ;;
   production)
     APP="${PRODCTL_APP:-akademie}"
     CONVEX_HOST="${CONVEX_HOST:-convex-akademie.contentoren.de}"
     API_HOST="${API_HOST:-api.akademie.contentoren.de}"
+    FRONTEND_HOST="${FRONTEND_HOST:-akademie.contentoren.de}"
     INSTANCE_NAME=production
     ;;
   *)
@@ -100,11 +102,11 @@ path.write_text("\n".join(updated).rstrip() + "\n")
 PY
 }
 
-ensure_auth_keys() {
+ensure_auth_secret() {
   local env_file="$1"
   ENV_FILE="$env_file" bun -e '
 import { readFileSync, writeFileSync } from "node:fs"
-import { exportJWK, exportPKCS8, generateKeyPair } from "jose"
+import { randomBytes } from "node:crypto"
 
 const path = process.env.ENV_FILE
 if (!path) throw new Error("ENV_FILE is required")
@@ -119,22 +121,14 @@ const value = (name) => {
   return raw
 }
 
-const privateKey = value("JWT_PRIVATE_KEY")
-const jwks = value("JWKS")
-if (privateKey || jwks) {
-  if (!privateKey || !jwks) throw new Error("JWT_PRIVATE_KEY and JWKS must be configured together")
+const existingSecret = value("AUTH_SECRET")
+if (existingSecret) {
+  if (existingSecret.length < 32) throw new Error("AUTH_SECRET must contain at least 32 characters")
   process.exit(0)
 }
 
-const keys = await generateKeyPair("RS256", { extractable: true })
-const privateKeyValue = (await exportPKCS8(keys.privateKey)).trimEnd().replaceAll("\n", " ")
-const publicKey = await exportJWK(keys.publicKey)
-const jwksValue = JSON.stringify({ keys: [{ use: "sig", ...publicKey }] })
 const quote = (input) => singleQuote + input.replaceAll(singleQuote, singleQuote + "\\\\" + singleQuote + singleQuote) + singleQuote
-const replacement = {
-  JWT_PRIVATE_KEY: quote(privateKeyValue),
-  JWKS: quote(jwksValue),
-}
+const replacement = { AUTH_SECRET: quote(randomBytes(32).toString("base64url")) }
 let output = source
 for (const [name, next] of Object.entries(replacement)) {
   const line = new RegExp(`^(?:export\\s+)?${name}\\s*=.*$`, "m")
@@ -158,7 +152,10 @@ write_env_value "$ENV_FILE" CONVEX_SELF_HOSTED_URL "https://$CONVEX_HOST"
 write_env_value "$ENV_FILE" CONVEX_SELF_HOSTED_ADMIN_KEY "$key"
 write_env_value "$ENV_FILE" VITE_CONVEX_URL "https://$CONVEX_HOST"
 write_env_value "$ENV_FILE" CONVEX_SITE_URL "https://$API_HOST"
-ensure_auth_keys "$ENV_FILE"
+write_env_value "$ENV_FILE" VITE_CONVEX_SITE_URL "https://$API_HOST"
+write_env_value "$ENV_FILE" APP_URL "https://$FRONTEND_HOST"
+write_env_value "$ENV_FILE" SITE_URL "https://$FRONTEND_HOST"
+ensure_auth_secret "$ENV_FILE"
 
 runtime_env="$(mktemp)"
 trap 'rm -f "$runtime_env"' EXIT

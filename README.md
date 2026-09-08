@@ -22,10 +22,10 @@ bun run convex:dev
 Die Backend-Deployments laufen rootless über `prodctl`: Entwicklung und Produktion
 haben getrennte self-hosted Convex-Instanzen. Die ignorierten Dateien
 `.env.development` und `.env.production` enthalten lokale CLI-, Build- und
-Auth-Handoff-Werte;
-die Auth-Schlüssel werden beim Backend-Deployment erzeugt und separat in Convex
-gesetzt. Alte Cloud-Overrides wurden entfernt; falls `convex dev` `.env.local`
-neu erzeugt, bleibt sie eine CLI-generierte, nicht zu bearbeitende Datei.
+Auth-Werte. `AUTH_SECRET` wird beim Backend-Deployment erzeugt und separat in
+Convex gesetzt. Alte Cloud-Overrides wurden entfernt; falls `convex dev`
+`.env.local` neu erzeugt, bleibt sie eine CLI-generierte, nicht zu bearbeitende
+Datei.
 
 ## Entwicklung
 
@@ -72,13 +72,18 @@ bun run backend:env:sync
 ```
 
 Die reservierten `CONVEX_SELF_HOSTED_*`-, `CONVEX_DEPLOYMENT`- und CLI-Token
-Variablen bleiben lokal. `CONVEX_SITE_URL` ist bei self-hosted Convex ein
-verwalteter Built-in-Wert (aus dem Site-Origin), während `JWT_PRIVATE_KEY` und
-`JWKS` für `@convex-dev/auth` in Convex gesetzt werden. Die Backend-Routen sind
+Variablen bleiben lokal. `CONVEX_SITE_URL` ist die öffentliche Convex-Site/API
+Route; `VITE_CONVEX_SITE_URL` wird zusätzlich in den Frontend-Build übernommen,
+damit der Browser den OAuth-Start auf dem API-Origin öffnet. `AUTH_SECRET`,
+`AUTH_GOOGLE_ID` und `AUTH_GOOGLE_SECRET` werden als Backend-Variablen gesetzt.
+`APP_URL` (beziehungsweise `SITE_URL`) ist ausschließlich der Frontend-Origin,
+der für `returnTo` erlaubt ist. Die Google-Redirect-URI lautet exakt
+`<CONVEX_SITE_URL>/api/auth/google` und muss bei den bestehenden Google-
+Credentials autorisiert sein. Die Backend-Routen sind
 `convex-akademie-dev.contentoren.de` / `api.preview.akademie.contentoren.de` sowie
 `convex-akademie.contentoren.de` / `api.akademie.contentoren.de`.
 
-Backend-E2E (Health, Auth-Discovery, Passwort-Sign-up und geschützte Query):
+Backend-E2E (Health, Custom-Auth-Google-Start, Passwort-Sign-up und geschützte Query):
 
 ```bash
 bun run backend:e2e:development
@@ -162,8 +167,8 @@ bun run backend:e2e:development
 bun run backend:e2e
 curl -fsS https://convex-akademie.contentoren.de/version
 curl -fsS https://convex-akademie-dev.contentoren.de/version
-curl -fsS https://api.akademie.contentoren.de/.well-known/openid-configuration
-curl -fsS https://api.preview.akademie.contentoren.de/.well-known/openid-configuration
+curl -fsS 'https://api.akademie.contentoren.de/api/auth/google?returnTo=%2Fcustomers' -o /dev/null -w '%{http_code}\n'
+curl -fsS 'https://api.preview.akademie.contentoren.de/api/auth/google?returnTo=%2Fcustomers' -o /dev/null -w '%{http_code}\n'
 ```
 
 ## Funktionen
