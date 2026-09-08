@@ -9,18 +9,18 @@ function cleanOptional(value: string | undefined) {
 }
 
 export const list = query({
-  args: {},
-  handler: async (ctx) => {
-    await requireAuth(ctx)
+  args: { token: v.string() },
+  handler: async (ctx, args) => {
+    await requireAuth(ctx, args.token)
 
     return await ctx.db.query("customers").withIndex("by_updatedAt").order("desc").collect()
   },
 })
 
 export const get = query({
-  args: { customerId: v.id("customers") },
+  args: { token: v.string(), customerId: v.id("customers") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     return await ctx.db.get(args.customerId)
   },
@@ -28,13 +28,14 @@ export const get = query({
 
 export const create = mutation({
   args: {
+    token: v.string(),
     name: v.string(),
     email: v.string(),
     company: v.optional(v.string()),
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const now = Date.now()
 
@@ -51,6 +52,7 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
+    token: v.string(),
     customerId: v.id("customers"),
     name: v.string(),
     email: v.string(),
@@ -58,7 +60,7 @@ export const update = mutation({
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     await ctx.db.patch(args.customerId, {
       name: args.name.trim(),
@@ -71,9 +73,9 @@ export const update = mutation({
 })
 
 export const remove = mutation({
-  args: { customerId: v.id("customers") },
+  args: { token: v.string(), customerId: v.id("customers") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const [files, progressItems] = await Promise.all([
       ctx.db.query("textFiles").withIndex("by_customer", (q) => q.eq("customerId", args.customerId)).collect(),

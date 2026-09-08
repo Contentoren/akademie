@@ -5,9 +5,9 @@ import { mutation, query } from "./_generated/server"
 import { requireAuth } from "./requireAuth"
 
 export const listByCustomer = query({
-  args: { customerId: v.id("customers") },
+  args: { token: v.string(), customerId: v.id("customers") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     return await ctx.db.query("progress").withIndex("by_customer", (q) => q.eq("customerId", args.customerId)).collect()
   },
@@ -15,13 +15,14 @@ export const listByCustomer = query({
 
 export const create = mutation({
   args: {
+    token: v.string(),
     customerId: v.id("customers"),
     label: v.string(),
     status: progressStatus,
     sourceTextFileId: v.optional(v.id("textFiles")),
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const now = Date.now()
 
@@ -38,13 +39,14 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
+    token: v.string(),
     progressId: v.id("progress"),
     label: v.string(),
     status: progressStatus,
     sourceTextFileId: v.optional(v.id("textFiles")),
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     await ctx.db.patch(args.progressId, {
       label: args.label.trim(),
@@ -57,11 +59,12 @@ export const update = mutation({
 
 export const updateStatus = mutation({
   args: {
+    token: v.string(),
     progressId: v.id("progress"),
     status: progressStatus,
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     await ctx.db.patch(args.progressId, {
       status: args.status,
@@ -71,9 +74,9 @@ export const updateStatus = mutation({
 })
 
 export const remove = mutation({
-  args: { progressId: v.id("progress") },
+  args: { token: v.string(), progressId: v.id("progress") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     await ctx.db.delete(args.progressId)
   },

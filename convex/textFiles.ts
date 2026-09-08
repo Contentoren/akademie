@@ -5,9 +5,9 @@ import { mutation, query } from "./_generated/server"
 import { requireAuth } from "./requireAuth"
 
 export const listByCustomer = query({
-  args: { customerId: v.id("customers") },
+  args: { token: v.string(), customerId: v.id("customers") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     return await ctx.db
       .query("textFiles")
@@ -18,9 +18,9 @@ export const listByCustomer = query({
 })
 
 export const get = query({
-  args: { fileId: v.id("textFiles") },
+  args: { token: v.string(), fileId: v.id("textFiles") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const file = await ctx.db.get(args.fileId)
 
@@ -37,13 +37,14 @@ export const get = query({
 
 export const create = mutation({
   args: {
+    token: v.string(),
     customerId: v.id("customers"),
     title: v.string(),
     content: v.string(),
     kind: textFileKind,
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const now = Date.now()
 
@@ -60,13 +61,14 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
+    token: v.string(),
     fileId: v.id("textFiles"),
     title: v.string(),
     content: v.string(),
     kind: textFileKind,
   },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     await ctx.db.patch(args.fileId, {
       title: args.title.trim(),
@@ -78,9 +80,9 @@ export const update = mutation({
 })
 
 export const remove = mutation({
-  args: { fileId: v.id("textFiles") },
+  args: { token: v.string(), fileId: v.id("textFiles") },
   handler: async (ctx, args) => {
-    await requireAuth(ctx)
+    await requireAuth(ctx, args.token)
 
     const linkedProgress = await ctx.db
       .query("progress")

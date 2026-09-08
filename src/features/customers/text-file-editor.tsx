@@ -9,6 +9,7 @@ import { createSignal, Show } from "solid-js"
 import { api } from "#convex/_generated/api.js"
 import type { Id } from "#convex/_generated/dataModel.js"
 import { Button, Card, EmptyState, Field } from "#src/components/ui"
+import { useAuthToken } from "#src/lib/convex-client"
 import type { TextFileKind } from "./types"
 
 const fileKindLabels: Record<TextFileKind, string> = {
@@ -20,7 +21,8 @@ const fileKindLabels: Record<TextFileKind, string> = {
 
 export function TextFileEditorPage({ fileId }: { fileId: string }) {
   const id = fileId as Id<"textFiles">
-  const result = useQuery(api.textFiles.get, { fileId: id })
+  const token = useAuthToken()
+  const result = useQuery(api.textFiles.get, () => ({ token: token(), fileId: id }), () => ({ enabled: token().length > 0 }))
   const updateTextFile = useMutation(api.textFiles.update)
   const removeTextFile = useMutation(api.textFiles.remove)
   const [isSaving, setIsSaving] = createSignal(false)
@@ -39,7 +41,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
 
     setIsSaving(true)
     try {
-      await updateTextFile.mutate({ fileId: id, title, kind, content })
+      await updateTextFile.mutate({ token: token(), fileId: id, title, kind, content })
     } finally {
       setIsSaving(false)
     }
@@ -50,7 +52,7 @@ export function TextFileEditorPage({ fileId }: { fileId: string }) {
       return
     }
 
-    await removeTextFile.mutate({ fileId: id })
+    await removeTextFile.mutate({ token: token(), fileId: id })
     const customer = loadedResult()?.customer
     window.location.href = customer ? `/customers/${customer._id}` : "/customers/verwaltung"
   }

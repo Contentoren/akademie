@@ -9,10 +9,12 @@ import type { JSX } from "solid-js"
 
 import { api } from "#convex/_generated/api.js"
 import { Card } from "#src/components/ui"
+import { useAuthToken } from "#src/lib/convex-client"
 import { useQuery } from "convex-solidjs"
 
 export function HomePage() {
-  const overview = useQuery(api.dashboard.overview, {})
+  const token = useAuthToken()
+  const overview = useQuery(api.dashboard.overview, () => ({ token: token() }), () => ({ enabled: token().length > 0 }))
 
   return (
     <div class="overflow-hidden">

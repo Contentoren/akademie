@@ -9,10 +9,12 @@ import { createSignal } from "solid-js"
 
 import { api } from "#convex/_generated/api.js"
 import { Button, Card, EmptyState, Field } from "#src/components/ui"
+import { useAuthToken } from "#src/lib/convex-client"
 
 export function CustomerListPage() {
-  const customersQuery = useQuery(api.customers.list, {})
-  const overview = useQuery(api.dashboard.overview, {})
+  const token = useAuthToken()
+  const customersQuery = useQuery(api.customers.list, () => ({ token: token() }), () => ({ enabled: token().length > 0 }))
+  const overview = useQuery(api.dashboard.overview, () => ({ token: token() }), () => ({ enabled: token().length > 0 }))
   const createCustomer = useMutation(api.customers.create)
   const [isCreating, setIsCreating] = createSignal(false)
   const customers = () => customersQuery.data() ?? []
@@ -30,7 +32,7 @@ export function CustomerListPage() {
 
     setIsCreating(true)
     try {
-      const customerId = await createCustomer.mutate({ name, email, company: company || undefined })
+      const customerId = await createCustomer.mutate({ token: token(), name, email, company: company || undefined })
       window.location.href = `/customers/${customerId}`
     } finally {
       setIsCreating(false)

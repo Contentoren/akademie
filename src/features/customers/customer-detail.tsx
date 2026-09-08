@@ -11,6 +11,7 @@ import { createSignal, Show } from "solid-js"
 import { api } from "#convex/_generated/api.js"
 import type { Id } from "#convex/_generated/dataModel.js"
 import { Button, Card, EmptyState, Field } from "#src/components/ui"
+import { useAuthToken } from "#src/lib/convex-client"
 import { calculateProgressPercent, nextProgressStatus, progressStatusLabels, type ProgressStatus } from "#src/lib/progress"
 import type { TextFileKind } from "./types"
 
@@ -23,9 +24,10 @@ const fileKindLabels: Record<TextFileKind, string> = {
 
 export function CustomerDetailPage({ customerId }: { customerId: string }) {
   const id = customerId as Id<"customers">
-  const customer = useQuery(api.customers.get, { customerId: id })
-  const textFilesQuery = useQuery(api.textFiles.listByCustomer, { customerId: id })
-  const progressQuery = useQuery(api.progress.listByCustomer, { customerId: id })
+  const token = useAuthToken()
+  const customer = useQuery(api.customers.get, () => ({ token: token(), customerId: id }), () => ({ enabled: token().length > 0 }))
+  const textFilesQuery = useQuery(api.textFiles.listByCustomer, () => ({ token: token(), customerId: id }), () => ({ enabled: token().length > 0 }))
+  const progressQuery = useQuery(api.progress.listByCustomer, () => ({ token: token(), customerId: id }), () => ({ enabled: token().length > 0 }))
   const updateCustomer = useMutation(api.customers.update)
   const removeCustomer = useMutation(api.customers.remove)
   const createTextFile = useMutation(api.textFiles.create)
@@ -53,7 +55,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
 
     setIsSavingProfile(true)
     try {
-      await updateCustomer.mutate({ customerId: id, name, email, company: company || undefined, notes: notes || undefined })
+      await updateCustomer.mutate({ token: token(), customerId: id, name, email, company: company || undefined, notes: notes || undefined })
     } finally {
       setIsSavingProfile(false)
     }
@@ -64,7 +66,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
       return
     }
 
-    await removeCustomer.mutate({ customerId: id })
+    await removeCustomer.mutate({ token: token(), customerId: id })
     window.location.href = "/customers/verwaltung"
   }
 
@@ -82,6 +84,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
     setIsCreatingFile(true)
     try {
       const fileId = await createTextFile.mutate({
+        token: token(),
         customerId: id,
         title,
         kind,
@@ -108,6 +111,7 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
     setIsCreatingProgress(true)
     try {
       await createProgress.mutate({
+        token: token(),
         customerId: id,
         label,
         status: "open",
@@ -289,10 +293,10 @@ export function CustomerDetailPage({ customerId }: { customerId: string }) {
                       <p class="mt-1 text-sm text-slate-500">{progressStatusLabels[item.status]}</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                      <Button onClick={() => updateProgressStatus.mutate({ progressId: item._id, status: nextProgressStatus(item.status as ProgressStatus) })} type="button" variant="secondary">
+                      <Button onClick={() => updateProgressStatus.mutate({ token: token(), progressId: item._id, status: nextProgressStatus(item.status as ProgressStatus) })} type="button" variant="secondary">
                         Status wechseln
                       </Button>
-                      <Button onClick={() => removeProgress.mutate({ progressId: item._id })} type="button" variant="ghost">
+                      <Button onClick={() => removeProgress.mutate({ token: token(), progressId: item._id })} type="button" variant="ghost">
                         Entfernen
                       </Button>
                     </div>
